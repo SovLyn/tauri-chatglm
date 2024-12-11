@@ -1,0 +1,526 @@
+:root {
+  --Cyan1: #91E1D7;
+  --Cyan2: #5AA0A9;
+  --Cyan3: #436483;
+
+  --Gray1: #595959;
+  --Gray2: #BFBFBF;
+  --Gray3: #F0F0F0;
+
+  --Black: #1F1F1F;
+  --Black--G: linear-gradient(90deg, rgba(78, 78, 78, 0.60) 0%, rgba(36, 35, 35, 0.60) 100%);
+  --White: #FFFFFF;
+
+  --Yellow: #F7D270;
+
+  --Warn: #E29603;
+  --Warning: #E84848;
+
+  --Allow: #51B868;
+
+  --Red: #E94748;
+
+  --owner-color: #FFEE5A;
+  --manager-color: #ffffff;
+  --bdn-bg-selected: #ffffff;
+  --bdn-text-selected: #0E0E13;
+
+  --dop-create-bg: #0E0E13;
+
+  --Theme2: #5B9FA9;
+
+  --Components-Input-Global-borderRadius: 6px;
+  --Border-Radius-RadiusLG: 8px;
+  --Space-Padding-paddingMD: 20px;
+  --Space-Padding-paddingLG: 24px;
+  --Space-Padding-paddingXL: 32px;
+  --Space-Margin-XL: 32px;
+  --Space-Margin-MD: 20px;
+  --Space-Margin-SM: 12px;
+  --Space-Margin-XXS: 4px;
+  --Space-Margin-margin: 16px;
+  --Border-Radius-RadiusLG: 8px;
+
+  --Components-Input-Global-borderRadius: 6px;
+  --Border-Radius-RadiusLG: 8px;
+  --Space-Padding-paddingMD: 20px;
+  --Space-Padding-paddingLG: 24px;
+  --Space-Padding-paddingXXS: 4px;
+}
+
+.light {
+  --Background: #FFFFFF;
+  --Components-Button-PrimaryText: #FFFFFF;
+  --Components-Button-PrimaryBG: #5856D6;
+  --Components-Button-PrimaryBG---Hover: #8275D6;
+  --Components-Button-PrimaryBG---Pressed: #4B37B0;
+
+  --Color-Fill-Disable: rgba(0, 0, 0, 0.04);
+  --Color-Fill-Placeholder: rgba(0, 0, 0, 0.25);
+  --Color-Fill-BG---Disable: rgba(0, 0, 0, 0.04);
+
+  --Components-Button-SecondaryText: rgba(0, 0, 0, 0.85);
+  --Components-Button-SecondaryBG: #FFFFFF;
+  --Components-Button-SecondaryBG---Hover: #F2F2F2;
+  --Components-Button-SecondaryBG---Pressed: #D9D9D9;
+
+  --Color-Accents-Red: #FF453A;
+  --Components-Button-DangerBG---Hover: #FF7875;
+  --Components-Button-DangerBG---Pressed: #D9363E;
+
+  --Components-Button-TextIconBG: rgba(0, 0, 0, 0.06);
+  --Components-Button-TextIconBG---Pressed: rgba(0, 0, 0, 0.15);
+  --Components-Button-TextIconNoBG: rgba(0, 0, 0, 0.5);
+  --Components-Button-IconNoBG---Pressed: rgba(0, 0, 0, 0.85);
+
+  --Components-Button-TextbuttonText: rgba(0, 0, 0, 0.85);
+  --Components-Button-TextbuttonBG---hover: rgba(0, 0, 0, 0.06);
+  --Components-Button-TextbuttonBG---pressed: rgba(0, 0, 0, 0.12);
+
+  --Color-Text-Primary: rgba(0, 0, 0, 0.85);
+  --Components-Input-Bg: #FFF;
+  --Components-Input-Border: #D9D9D9;
+  --Components-Input-Border---Hover: #8275D6;
+  --Components-Input-Border---Pressed: #4B37B0;
+  --Components-Input-Border---Typing: #5856D6;
+
+  --Components-Input-ErrorBorder: #FF453A;
+  --Components-Input-ErrorBorder---Hover: #FF7875;
+  --Components-Input-ErrorBorder---Pressed: #D9363E;
+
+  --Components-Input-Bg---Disabled: rgba(0, 0, 0, 0.04);
+
+  --Color-Text-Secondary: rgba(0, 0, 0, 0.50);
+  --Components-Select-MenuItemText---disable: rgba(0, 0, 0, 0.25);
+
+  --Components-Avatar-BG: rgba(0, 0, 0, 0.25);
+
+  --Components-Checkbox-Bg---Disabled: rgba(0, 0, 0, 0.04);
+  --Components-Checkbox-Border: #D9D9D9;
+  --Components-Checkbox-Text---Disabled: rgba(0, 0, 0, 0.25);
+
+  --Components-Input-Text---Description: rgba(0, 0, 0, 0.45);
+  --Components-Input-ErrorBorder: #FF453A;
+  --Color-Accents-Orange: #FF9500;
+
+  --Components-Tooltip-BG: #060606;
+
+  --Color-Fill-Divider: rgba(0, 0, 0, 0.10);
+  --Color-Fill-DividerSecondary: rgba(0, 0, 0, 0.06);
+
+  --Components-Scrollbar-BG: rgba(0, 0, 0, 0.50);
+
+  --Components-Tag-DarkBlueText: #003992;
+  --Components-Tag-DarkBlueBG: rgba(52, 149, 242, 0.30);
+  --Components-Tag-BlueText: #0D5187;
+  --Components-Tag-BlueBG: rgba(113, 189, 249, 0.30);
+  --Components-Tag-GrayishBlueText: #31468E;
+  --Components-Tag-GrayishBlueBG: rgba(146, 164, 225, 0.30);
+  --Components-Tag-GreenText: #266910;
+  --Components-Tag-GreenBG: rgba(161, 211, 96, 0.30);
+  --Components-Tag-ArmyGreenText: #3F4210;
+  --Components-Tag-ArmyGreenBG: rgba(151, 172, 96, 0.30);
+  --Components-Tag-CyanText: #006971;
+  --Components-Tag-CyanBG: rgba(140, 221, 213, 0.30);
+  --Components-Tag-DarkGreenText: #005A37;
+  --Components-Tag-DarkGreenBG: rgba(0, 181, 118, 0.30);
+  --Components-Tag-PurpleText: #4300B0;
+  --Components-Tag-PurpleBG: rgba(189, 147, 250, 0.30);
+  --Components-Tag-DarkPurpleText: #1F1EA9;
+  --Components-Tag-DarkPurpleBG: rgba(98, 98, 217, 0.30);
+  --Components-Tag-OrangeText: #A74300;
+  --Components-Tag-OrangeBG: rgba(250, 200, 147, 0.30);
+  --Components-Tag-DarkOrangeText: #792700;
+  --Components-Tag-DarkOrangeBG: rgba(243, 111, 25, 0.30);
+  --Components-Tag-YellowText: #B25000;
+  --Components-Tag-YellowBG: rgba(251, 214, 67, 0.30);
+  --Components-Tag-RedText: #7F0022;
+  --Components-Tag-RedBG: rgba(200, 52, 75, 0.30);
+  --Components-Tag-PinkText: #9E008E;
+  --Components-Tag-PinkBG: rgba(247, 110, 178, 0.30);
+
+  --Color-Text-Tertiary: rgba(0, 0, 0, 0.50);
+  --Components-Menu-ItemBG---Hover: rgba(0, 0, 0, 0.06);
+  --Components-Menu-ItemBG---Pressed: rgba(0, 0, 0, 0.12);
+  --Components-Dropdown-ItemBG---Hover: rgba(0, 0, 0, 0.04);
+
+  --Color-Palettes-Gold-1: #FFFBE6;
+  --Color-Fill-Border: #D9D9D9;
+  --Color-Fill-BorderSecondary: rgba(240, 240, 240, 1);
+  --Color-Fill-Pop-up-Window-Mask: rgba(0, 0, 0, 0.45);
+  --Components-Modal-ModalBG: #FFF;
+  --Color-Text-Quaternary-Text-Disable: rgba(0, 0, 0, 0.25);
+
+  --Components-Menu-MenuBG: #FFF;
+  --Color-Fill-Divider: rgba(0, 0, 0, 0.10);
+}
+
+.dark {
+  --Background: #141414;
+  --Components-Button-PrimaryText: #FFFFFF;
+  --Components-Button-PrimaryBG: #5E5CE6;
+  --Components-Button-PrimaryBG---Hover: #887BE6;
+  --Components-Button-PrimaryBG---Pressed: #513DC0;
+
+  --Color-Fill-Disable: rgba(0, 0, 0, 0.04);
+  --Color-Fill-Placeholder: rgba(255, 255, 255, 0.25);
+  --Color-Fill-BG---Disable: rgba(255, 255, 255, 0.08);
+
+  --Components-Button-SecondaryText: #FFFFFF;
+  --Components-Button-SecondaryBG: #424242;
+  --Components-Button-SecondaryBG---Hover: #555555;
+  --Components-Button-SecondaryBG---Pressed: #686868;
+
+  --Color-Accents-Red: #FF453A;
+  --Components-Button-DangerBG---Hover: #FF7875;
+  --Components-Button-DangerBG---Pressed: #D9363E;
+
+  --Components-Button-TextIconBG: rgba(255, 255, 255, 0.12);
+  --Components-Button-TextIconBG---Pressed: rgba(255, 255, 255, 0.12);
+  --Components-Button-TextIconNoBG: rgba(0, 0, 0, 0.5);
+  --Components-Button-IconNoBG---Pressed: rgba(0, 0, 0, 0.85);
+
+  --Components-Button-TextbuttonText: rgba(255, 255, 255, 0.85);
+  --Components-Button-TextbuttonBG---hover: rgba(255, 255, 255, 0.12);
+  --Components-Button-TextbuttonBG---pressed: rgba(255, 255, 255, 0.24);
+
+  --Color-Text-Primary: rgba(255, 255, 255, 0.85);
+  --Components-Input-Bg: #141414;
+  --Components-Input-Border: #424242;
+  --Components-Input-Border---Hover: #887BE6;
+  --Components-Input-Border---Pressed: #513DC0;
+  --Components-Input-Border---Typing: #5E5CE6;
+
+  --Components-Input-ErrorBorder: #FF453A;
+  --Components-Input-ErrorBorder---Hover: #FF7875;
+  --Components-Input-ErrorBorder---Pressed: #D9363E;
+
+  --Components-Input-Bg---Disabled: rgba(255, 255, 255, 0.08);
+
+  --Color-Text-Secondary: rgba(255, 255, 255, 0.55);
+  --Components-Select-MenuItemText---disable: rgba(255, 255, 255, 0.25);
+
+  --Components-Avatar-BG: rgba(255, 255, 255, 0.25);
+
+  --Components-Checkbox-Bg---Disabled: rgba(255, 255, 255, 0.08);
+  --Components-Checkbox-Border: #424242;
+  --Components-Checkbox-Text---Disabled: rgba(255, 255, 255, 0.25);
+
+  --Components-Input-Text---Description: rgba(0, 0, 0, 0.45);
+  --Components-Input-ErrorBorder: #FF453A;
+  --Color-Accents-Orange: #FF9500;
+
+  --Components-Tooltip-BG: #424242;
+
+  --Color-Fill-Divider: rgba(255, 255, 255, 0.10);
+  --Color-Fill-DividerSecondary: rgba(255, 255, 255, 0.06);
+
+  --Components-Tag-DarkBlueText: #3495F2;
+  --Components-Tag-DarkBlueBG: rgba(0, 57, 146, 0.30);
+  --Components-Tag-BlueText: #71BDF9;
+  --Components-Tag-BlueBG: rgba(13, 81, 135, 0.30);
+  --Components-Tag-GrayishBlueText: #92A4E1;
+  --Components-Tag-GrayishBlueBG: rgba(49, 70, 142, 0.30);
+  --Components-Tag-GreenText: #A1D360;
+  --Components-Tag-GreenBG: rgba(38, 105, 16, 0.30);
+  --Components-Tag-ArmyGreenText: #97AC60;
+  --Components-Tag-ArmyGreenBG: rgba(63, 66, 16, 0.30);
+  --Components-Tag-CyanText: #8CDDD5;
+  --Components-Tag-CyanBG: rgba(0, 105, 113, 0.30);
+  --Components-Tag-DarkGreenText: #00B576;
+  --Components-Tag-DarkGreenBG: rgba(0, 90, 55, 0.30);
+  --Components-Tag-PurpleText: #BD93FA;
+  --Components-Tag-PurpleBG: rgba(67, 0, 176, 0.30);
+  --Components-Tag-DarkPurpleText: #6262D9;
+  --Components-Tag-DarkPurpleBG: rgba(31, 30, 169, 0.30);
+  --Components-Tag-OrangeText: #FAC893;
+  --Components-Tag-OrangeBG: rgba(167, 67, 0, 0.30);
+  --Components-Tag-DarkOrangeText: #F36F19;
+  --Components-Tag-DarkOrangeBG: rgba(121, 39, 0, 0.30);
+  --Components-Tag-YellowText: #FBD643;
+  --Components-Tag-YellowBG: rgba(178, 80, 0, 0.30);
+  --Components-Tag-RedText: #C8344B;
+  --Components-Tag-RedBG: rgba(127, 0, 34, 0.30);
+  --Components-Tag-PinkText: #F76EB2;
+  --Components-Tag-PinkBG: rgba(158, 0, 142, 0.30);
+
+  --Color-Text-Tertiary: rgba(255, 255, 255, 0.55);
+  --Components-Menu-ItemBG---Hover: rgba(255, 255, 255, 0.12);
+  --Components-Menu-ItemBG---Pressed: rgba(255, 255, 255, 0.24);
+  --Components-Dropdown-ItemBG---Hover: rgba(255, 255, 255, 0.08);
+  --Color-Palettes-Gold-1: #2B2111;
+  --Color-Fill-Border: #424242;
+  --Color-Fill-Pop-up-Window-Mask: rgba(0, 0, 0, 0.45);
+  --Components-Modal-ModalBG: #1F1F1F;
+}
+
+.light {
+  --Background: #FFFFFF;
+  --Components-Button-PrimaryText: #FFFFFF;
+  --Components-Button-PrimaryBG: #5856D6;
+  --Components-Button-PrimaryBG---Hover: #8275D6;
+  --Components-Button-PrimaryBG---Pressed: #4B37B0;
+  --Color-Fill-Disable: rgba(0, 0, 0, 0.04);
+  --Color-Fill-Placeholder: rgba(0, 0, 0, 0.25);
+  --Components-Button-SecondaryText: rgba(0, 0, 0, 0.85);
+  --Components-Button-SecondaryBG: #FFFFFF;
+  --Components-Button-SecondaryBG---Hover: #F2F2F2;
+  --Components-Button-SecondaryBG---Pressed: #D9D9D9;
+  --Color-Accents-Red: #FF453A;
+  --Components-Button-DangerBG---Hover: #FF7875;
+  --Components-Button-DangerBG---Pressed: #D9363E;
+  --Components-Button-TextIconBG: rgba(0, 0, 0, 0.06);
+  --Components-Button-TextIconBG---Pressed: rgba(0, 0, 0, 0.15);
+  --Components-Button-TextIconNoBG: rgba(0, 0, 0, 0.5);
+  --Components-Menu-ItemText: rgba(0, 0, 0, 0.85);
+  --Components-Button-IconNoBG---Pressed: rgba(0, 0, 0, 0.85);
+  --Components-Select-MenuItemBG---Hover: rgba(0, 0, 0, 0.04);
+  --Components-Select-MenuItemBG---Pressed: rgba(0, 0, 0, 0.12);
+  --Components-Select-MenuItemBG---Selected: #E7E6FF;
+  --Components-Select-MenuItemText---Disable: rgba(0, 0, 0, 0.25);
+
+  --Color-Text-Primary: rgba(0, 0, 0, 0.85);
+  --Color-Text-Quaternary-Text-Disable: rgba(0, 0, 0, 0.25);
+  --Components-Select-MultipleItemBG: rgba(0, 0, 0, 0.06);
+  --Color-Fill-BG---Disable: rgba(0, 0, 0, 0.04);
+  --Components-Select-MultipleItemBG---Hover: rgba(0, 0, 0, 0.12);
+
+
+  --Components-Scrollbar-BG: rgba(0, 0, 0, 0.50);
+  --Components-Scrollbar-BG---pressed: rgba(0, 0, 0, 0.70);
+
+  --Components-Select-MenuItemCheck: #5856D6;
+  --Color-Text-Tertiary: rgba(0, 0, 0, 0.50);
+}
+
+.dark {
+  --Components-Button-PrimaryText: #FFFFFF;
+  --Components-Button-PrimaryBG: #5E5CE6;
+  --Components-Button-PrimaryBG---Hover: #887BE6;
+  --Components-Button-PrimaryBG---Pressed: #513DC0;
+  --Color-Fill-Disable: rgba(0, 0, 0, 0.04);
+  --Components-Button-SecondaryText: #FFFFFF;
+  --Components-Button-SecondaryBG: #424242;
+  --Components-Button-SecondaryBG---Hover: #555555;
+  --Components-Button-SecondaryBG---Pressed: #686868;
+  --Color-Accents-Red: #FF453A;
+  --Components-Button-DangerBG---Hover: #FF7875;
+  --Components-Button-DangerBG---Pressed: #D9363E;
+  --Components-Button-TextIconBG: rgba(255, 255, 255, 0.12);
+  --Components-Button-TextIconBG---Pressed: rgba(255, 255, 255, 0.12);
+  --Components-Button-TextIconNoBG: rgba(0, 0, 0, 0.5);
+  --Components-Menu-ItemText: rgba(255, 255, 255, 0.85);
+  --Components-Button-IconNoBG---Pressed: rgba(0, 0, 0, 0.85);
+  --Components-Select-MenuItemBG---Hover: rgba(255, 255, 255, 0.08);
+  --Components-Select-MenuItemBG---Pressed: rgba(255, 255, 255, 0.24);
+  --Components-Select-MenuItemBG---Selected: #5E5CE6;
+  --Components-Select-MenuItemText---Disable: rgba(255, 255, 255, 0.25);
+
+  --Color-Text-Primary: rgba(255, 255, 255, 0.85);
+  --Color-Text-Quaternary-Text-Disable: rgba(255, 255, 255, 0.25);
+  --Components-Scrollbar-BG: rgba(255, 255, 255, 0.50);
+  --Components-Scrollbar-BG---pressed: rgba(255, 255, 255, 0.70);
+
+  --Components-Select-MenuItemCheck: #FFFFFF;
+  --Color-Text-Tertiary: rgba(255, 255, 255, 0.55);
+  --Components-Menu-MenuBG: #141414;
+  --Components-Input-Border---Typing: #5E5CE6;
+  --Components-Tag-WarningBorder: #594214;
+  --Components-Tag-WarningBg: #2B2111;
+}
+
+@font-face {
+  font-family: Gellix TRIAL;
+  font-style: normal;
+  font-weight: 100;
+  src: url(./assets/fonts/GellixTRIAL/GellixTRIAL-Thin.otf) format('truetype'),
+}
+
+@font-face {
+  font-family: Gellix TRIAL;
+  font-style: italic;
+  font-weight: 100;
+  src: url(./assets/fonts/GellixTRIAL/GellixTRIAL-ThinItalic.otf) format('truetype'),
+}
+
+@font-face {
+  font-family: Gellix TRIAL;
+  font-style: normal;
+  font-weight: 300;
+  src: url(./assets/fonts/GellixTRIAL/GellixTRIAL-Light.otf) format('truetype'),
+}
+
+@font-face {
+  font-family: Gellix TRIAL;
+  font-style: italic;
+  font-weight: 300;
+  src: url(./assets/fonts/GellixTRIAL/GellixTRIAL-LightItalic.otf) format('truetype'),
+}
+
+@font-face {
+  font-family: Gellix TRIAL;
+  font-style: normal;
+  font-weight: 350;
+  src: url(./assets/fonts/GellixTRIAL/GellixTRIAL-Light.otf) format('truetype'),
+}
+
+@font-face {
+  font-family: Gellix TRIAL;
+  font-style: italic;
+  font-weight: 350;
+  src: url(./assets/fonts/GellixTRIAL/GellixTRIAL-LightItalic.otf) format('truetype'),
+}
+
+@font-face {
+  font-family: Gellix TRIAL;
+  font-style: normal;
+  font-weight: 400;
+  src: url(./assets/fonts/GellixTRIAL/GellixTRIAL-Regular.otf) format('truetype'),
+}
+
+@font-face {
+  font-family: Gellix TRIAL;
+  font-style: italic;
+  font-weight: 400;
+  src: url(./assets/fonts/GellixTRIAL/GellixTRIAL-RegularItalic.otf) format('truetype'),
+}
+
+@font-face {
+  font-family: Gellix TRIAL;
+  font-style: normal;
+  font-weight: 450;
+  src: url(./assets/fonts/GellixTRIAL/GellixTRIAL-Regular.otf) format('truetype'),
+}
+
+@font-face {
+  font-family: Gellix TRIAL;
+  font-style: italic;
+  font-weight: 450;
+  src: url(./assets/fonts/GellixTRIAL/GellixTRIAL-RegularItalic.otf) format('truetype'),
+}
+
+@font-face {
+  font-family: Gellix TRIAL;
+  font-style: normal;
+  font-weight: 500;
+  src: url(./assets/fonts/GellixTRIAL/GellixTRIAL-Medium.otf) format('truetype'),
+}
+
+@font-face {
+  font-family: Gellix TRIAL;
+  font-style: italic;
+  font-weight: 500;
+  src: url(./assets/fonts/GellixTRIAL/GellixTRIAL-MediumItalic.otf) format('truetype'),
+}
+
+@font-face {
+  font-family: Gellix TRIAL;
+  font-style: normal;
+  font-weight: 550;
+  src: url(./assets/fonts/GellixTRIAL/GellixTRIAL-Medium.otf) format('truetype'),
+}
+
+@font-face {
+  font-family: Gellix TRIAL;
+  font-style: normal;
+  font-weight: 550;
+  src: url(./assets/fonts/GellixTRIAL/GellixTRIAL-SemiBold.otf) format('truetype'),
+}
+
+@font-face {
+  font-family: Gellix TRIAL;
+  font-style: italic;
+  font-weight: 550;
+  src: url(./assets/fonts/GellixTRIAL/GellixTRIAL-MediumItalic.otf) format('truetype'),
+}
+
+@font-face {
+  font-family: Gellix TRIAL;
+  font-style: normal;
+  font-weight: 600;
+  src: url(./assets/fonts/GellixTRIAL/GellixTRIAL-SemiBold.otf) format('truetype'),
+}
+
+@font-face {
+  font-family: Gellix TRIAL;
+  font-style: italic;
+  font-weight: 700;
+  src: url(./assets/fonts/GellixTRIAL/GellixTRIAL-SemiBoldItalic.otf) format('truetype'),
+}
+
+@font-face {
+  font-family: Gellix TRIAL;
+  font-style: normal;
+  font-weight: 700;
+  src: url(./assets/fonts/GellixTRIAL/GellixTRIAL-Bold.otf) format('truetype'),
+}
+
+@font-face {
+  font-family: Gellix TRIAL;
+  font-style: normal;
+  font-weight: 600;
+  src: url(./assets/fonts/GellixTRIAL/GellixTRIAL-Bold.otf) format('truetype'),
+}
+
+@font-face {
+  font-family: Gellix TRIAL;
+  font-style: italic;
+  font-weight: 800;
+  src: url(./assets/fonts/GellixTRIAL/GellixTRIAL-ExtraBoldItalic.otf) format('truetype'),
+}
+
+@font-face {
+  font-family: Gellix TRIAL;
+  font-style: normal;
+  font-weight: 800;
+  src: url(./assets/fonts/GellixTRIAL/GellixTRIAL-ExtraBold.otf) format('truetype'),
+}
+
+@font-face {
+  font-family: Gellix TRIAL;
+  font-style: italic;
+  font-weight: 800;
+  src: url(./assets/fonts/GellixTRIAL/GellixTRIAL-BlackItalic.otf) format('truetype'),
+}
+
+@font-face {
+  font-family: Gellix TRIAL;
+  font-style: normal;
+  font-weight: 800;
+  src: url(./assets/fonts/GellixTRIAL/GellixTRIAL-Black.otf) format('truetype'),
+}
+
+@font-face {
+  font-family: SF Pro Text;
+  font-style: normal;
+  font-weight: 400;
+  src: url(./assets/fonts/SF-Pro-Text-Regular.ttf) format('truetype'),
+}
+
+@font-face {
+  font-family: SF Pro Text;
+  font-style: normal;
+  font-weight: 450;
+  src: url(./assets/fonts/SF-Pro-Text-Regular.ttf) format('truetype'),
+}
+
+@font-face {
+  font-family: SF Pro Text;
+  font-style: normal;
+  font-weight: 500;
+  src: url(./assets/fonts/SF-Pro-Text-Medium.ttf) format('truetype'),
+}
+
+@font-face {
+  font-family: SF Pro Text;
+  font-style: normal;
+  font-weight: 550;
+  src: url(./assets/fonts/SF-Pro-Text-Medium.ttf) format('truetype'),
+}
+
+@font-face {
+  font-family: Gellix TRIAL;
+  font-style: normal;
+  font-weight: 700;
+  src: url(./assets/fonts/GellixTRIAL/GellixTRIAL-Bold.otf) format('truetype'),
+}
