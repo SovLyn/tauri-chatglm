@@ -22,15 +22,12 @@
 
   --owner-color: #FFEE5A;
   --manager-color: #ffffff;
-  --bdn-bg-selected: #ffffff;
-  --bdn-text-selected: #0E0E13;
-
-  --dop-create-bg: #0E0E13;
 
   --Theme2: #5B9FA9;
 
   --Components-Input-Global-borderRadius: 6px;
   --Border-Radius-RadiusLG: 8px;
+  --Space-Padding-paddingS: 8px;
   --Space-Padding-paddingMD: 20px;
   --Space-Padding-paddingLG: 24px;
   --Space-Padding-paddingXL: 32px;
@@ -39,13 +36,6 @@
   --Space-Margin-SM: 12px;
   --Space-Margin-XXS: 4px;
   --Space-Margin-margin: 16px;
-  --Border-Radius-RadiusLG: 8px;
-
-  --Components-Input-Global-borderRadius: 6px;
-  --Border-Radius-RadiusLG: 8px;
-  --Space-Padding-paddingMD: 20px;
-  --Space-Padding-paddingLG: 24px;
-  --Space-Padding-paddingXXS: 4px;
 }
 
 .light {
@@ -54,6 +44,7 @@
   --Components-Button-PrimaryBG: #5856D6;
   --Components-Button-PrimaryBG---Hover: #8275D6;
   --Components-Button-PrimaryBG---Pressed: #4B37B0;
+  --Components-Button-PrimaryBG---Unpressed: #E0E0E0;
 
   --Color-Fill-Disable: rgba(0, 0, 0, 0.04);
   --Color-Fill-Placeholder: rgba(0, 0, 0, 0.25);
@@ -153,6 +144,11 @@
 
   --Components-Menu-MenuBG: #FFF;
   --Color-Fill-Divider: rgba(0, 0, 0, 0.10);
+
+  --Color-Header: #55bb8a;
+  --Color-Chat: #ECEBDE;
+  --Color-Other: #ABBA7C;
+  --Color-Self: #D4EBF8;
 }
 
 .dark {
@@ -161,6 +157,7 @@
   --Components-Button-PrimaryBG: #5E5CE6;
   --Components-Button-PrimaryBG---Hover: #887BE6;
   --Components-Button-PrimaryBG---Pressed: #513DC0;
+  --Components-Button-PrimaryBG---Unpressed: #E0E0E0;
 
   --Color-Fill-Disable: rgba(0, 0, 0, 0.04);
   --Color-Fill-Placeholder: rgba(255, 255, 255, 0.25);
@@ -215,6 +212,8 @@
   --Color-Fill-Divider: rgba(255, 255, 255, 0.10);
   --Color-Fill-DividerSecondary: rgba(255, 255, 255, 0.06);
 
+  --Components-Scrollbar-BG: rgba(0, 0, 0, 0.85);
+
   --Components-Tag-DarkBlueText: #3495F2;
   --Components-Tag-DarkBlueBG: rgba(0, 57, 146, 0.30);
   --Components-Tag-BlueText: #71BDF9;
@@ -252,81 +251,25 @@
   --Color-Fill-Border: #424242;
   --Color-Fill-Pop-up-Window-Mask: rgba(0, 0, 0, 0.45);
   --Components-Modal-ModalBG: #1F1F1F;
+
+  --Color-Header: #2b312c;
+  --Color-Chat: #A59D84;
+  --Color-Other: #3D5300;
+  --Color-Self: #0A3981;
 }
 
-.light {
-  --Background: #FFFFFF;
-  --Components-Button-PrimaryText: #FFFFFF;
-  --Components-Button-PrimaryBG: #5856D6;
-  --Components-Button-PrimaryBG---Hover: #8275D6;
-  --Components-Button-PrimaryBG---Pressed: #4B37B0;
-  --Color-Fill-Disable: rgba(0, 0, 0, 0.04);
-  --Color-Fill-Placeholder: rgba(0, 0, 0, 0.25);
-  --Components-Button-SecondaryText: rgba(0, 0, 0, 0.85);
-  --Components-Button-SecondaryBG: #FFFFFF;
-  --Components-Button-SecondaryBG---Hover: #F2F2F2;
-  --Components-Button-SecondaryBG---Pressed: #D9D9D9;
-  --Color-Accents-Red: #FF453A;
-  --Components-Button-DangerBG---Hover: #FF7875;
-  --Components-Button-DangerBG---Pressed: #D9363E;
-  --Components-Button-TextIconBG: rgba(0, 0, 0, 0.06);
-  --Components-Button-TextIconBG---Pressed: rgba(0, 0, 0, 0.15);
-  --Components-Button-TextIconNoBG: rgba(0, 0, 0, 0.5);
-  --Components-Menu-ItemText: rgba(0, 0, 0, 0.85);
-  --Components-Button-IconNoBG---Pressed: rgba(0, 0, 0, 0.85);
-  --Components-Select-MenuItemBG---Hover: rgba(0, 0, 0, 0.04);
-  --Components-Select-MenuItemBG---Pressed: rgba(0, 0, 0, 0.12);
-  --Components-Select-MenuItemBG---Selected: #E7E6FF;
-  --Components-Select-MenuItemText---Disable: rgba(0, 0, 0, 0.25);
-
-  --Color-Text-Primary: rgba(0, 0, 0, 0.85);
-  --Color-Text-Quaternary-Text-Disable: rgba(0, 0, 0, 0.25);
-  --Components-Select-MultipleItemBG: rgba(0, 0, 0, 0.06);
-  --Color-Fill-BG---Disable: rgba(0, 0, 0, 0.04);
-  --Components-Select-MultipleItemBG---Hover: rgba(0, 0, 0, 0.12);
-
-
-  --Components-Scrollbar-BG: rgba(0, 0, 0, 0.50);
-  --Components-Scrollbar-BG---pressed: rgba(0, 0, 0, 0.70);
-
-  --Components-Select-MenuItemCheck: #5856D6;
-  --Color-Text-Tertiary: rgba(0, 0, 0, 0.50);
+body {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
 }
 
-.dark {
-  --Components-Button-PrimaryText: #FFFFFF;
-  --Components-Button-PrimaryBG: #5E5CE6;
-  --Components-Button-PrimaryBG---Hover: #887BE6;
-  --Components-Button-PrimaryBG---Pressed: #513DC0;
-  --Color-Fill-Disable: rgba(0, 0, 0, 0.04);
-  --Components-Button-SecondaryText: #FFFFFF;
-  --Components-Button-SecondaryBG: #424242;
-  --Components-Button-SecondaryBG---Hover: #555555;
-  --Components-Button-SecondaryBG---Pressed: #686868;
-  --Color-Accents-Red: #FF453A;
-  --Components-Button-DangerBG---Hover: #FF7875;
-  --Components-Button-DangerBG---Pressed: #D9363E;
-  --Components-Button-TextIconBG: rgba(255, 255, 255, 0.12);
-  --Components-Button-TextIconBG---Pressed: rgba(255, 255, 255, 0.12);
-  --Components-Button-TextIconNoBG: rgba(0, 0, 0, 0.5);
-  --Components-Menu-ItemText: rgba(255, 255, 255, 0.85);
-  --Components-Button-IconNoBG---Pressed: rgba(0, 0, 0, 0.85);
-  --Components-Select-MenuItemBG---Hover: rgba(255, 255, 255, 0.08);
-  --Components-Select-MenuItemBG---Pressed: rgba(255, 255, 255, 0.24);
-  --Components-Select-MenuItemBG---Selected: #5E5CE6;
-  --Components-Select-MenuItemText---Disable: rgba(255, 255, 255, 0.25);
-
-  --Color-Text-Primary: rgba(255, 255, 255, 0.85);
-  --Color-Text-Quaternary-Text-Disable: rgba(255, 255, 255, 0.25);
-  --Components-Scrollbar-BG: rgba(255, 255, 255, 0.50);
-  --Components-Scrollbar-BG---pressed: rgba(255, 255, 255, 0.70);
-
-  --Components-Select-MenuItemCheck: #FFFFFF;
-  --Color-Text-Tertiary: rgba(255, 255, 255, 0.55);
-  --Components-Menu-MenuBG: #141414;
-  --Components-Input-Border---Typing: #5E5CE6;
-  --Components-Tag-WarningBorder: #594214;
-  --Components-Tag-WarningBg: #2B2111;
+#root {
+  display: flex;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 
 @font-face {

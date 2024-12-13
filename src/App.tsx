@@ -3,7 +3,7 @@ import "./App.css";
 import "./global.css";
 import Layout from "./Layout";
 import Chat from "./pages/Chat";
-import More from "./pages/More";
+import Setting from "./pages/Setting";
 import { Provider } from "react-redux";
 import { createStore } from "./redux/store";
 
@@ -13,7 +13,7 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { path: "/", element: <Chat /> },
-      { path: "/more", element: <More /> },
+      { path: "/setting", element: <Setting /> },
     ],
   },
 ]);

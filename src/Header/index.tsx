@@ -1,21 +1,40 @@
 import { FC } from "react";
 import styles from "./index.module.less";
-import ReturnSVG from "@/assets/header_return.svg?react";
+import ReturnSVG from "@/assets/return.svg?react";
+import SettingSVG from "@/assets/setting.svg?react";
 
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const Header: FC = () => {
+const Header: FC<{ className?: string; style?: React.CSSProperties }> = ({
+  className,
+  style,
+}) => {
+  const navigate = useNavigate();
   const location = useLocation();
 
   return (
-    <div className={styles.header}>
-      <div className={styles.left}>
-        <ReturnSVG />
-      </div>
+    <div className={className} style={style}>
+      {location.pathname !== "/" && (
+        <div
+          className={styles.left}
+          onClick={() => {
+            document.startViewTransition(() => navigate(-1));
+          }}>
+          <ReturnSVG />
+        </div>
+      )}
       <div className={styles.middle}>
-        {location.pathname === "/" ? "main" : "more"}
+        {location.pathname === "/" ? "Chat" : "Setting"}
       </div>
-      <div></div>
+      {location.pathname === "/" && (
+        <div
+          className={styles.right}
+          onClick={() => {
+            document.startViewTransition(() => navigate("/setting"));
+          }}>
+          <SettingSVG />
+        </div>
+      )}
     </div>
   );
 };
