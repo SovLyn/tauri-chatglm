@@ -74,7 +74,7 @@ const Chat: FC = () => {
     <div className={styles.container}>
       <div className={styles.chat} ref={chatRef}>
         {messages.map((m, i) => (
-          <div className={styles.row} id={`chat row $ {i}`} key={i}>
+          <div className={styles.row} id={`chat row ${i}`} key={i}>
             <div className={m.role === "user" ? styles.self : styles.other}>
               {m.content}
             </div>

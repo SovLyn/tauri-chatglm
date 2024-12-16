@@ -31,6 +31,8 @@
         svg {
             width: 30px;
             height: 30px;
+            fill: var(--Color-Text-Primary);
+            transition: inherit;
         }
 
         .text {
@@ -39,40 +41,77 @@
             text-align: left;
         }
 
-        .dropdown {
-            display: flex;
-            gap: var(--Space-Padding-paddingS);
-            cursor: pointer;
-            color: var(--Components-Button-PrimaryBG);
+        .radio {
+            :global {
+                .ant-radio-button-wrapper {
+                    background-color: var(--Components-Button-PrimaryBG---Unpressed);
+                    border-width: 0;
 
-            svg {
-                width: 20px;
-                height: 20px;
-                fill: var(--Components-Button-PrimaryBG);
+                    &:hover {
+                        color: var(--Components-Button-PrimaryBG---Hover);
+                    }
+
+                    &:not(:first-child)::before {
+                        width: 0;
+                    }
+                }
+
+                .ant-radio-button-wrapper-checked {
+                    background-color: var(--Components-Button-PrimaryBG---Pressed);
+                    color: var(--Components-Button-PrimaryText);
+                    border-width: 0;
+                }
+            }
+        }
+
+        .input {
+            width: 40%;
+            min-width: 450px;
+
+            :global {
+                .ant-input-outlined {
+                    &:hover {
+                        border-color: var(--Components-Input-Border---Hover);
+                    }
+
+                    &:focus {
+                        outline: none;
+                        border-color: var(--Components-Input-Border---Typing);
+                        box-shadow: inset 0 0 3px 0 var(--Components-Input-Border---Typing);
+                    }
+                }
+            }
+
+            button {
+                background-color: var(--Components-Button-PrimaryBG);
+                border-width: 0;
+                padding: var(--Space-Padding-paddingS) var(--Space-Padding-paddingMD);
+                cursor: pointer;
+                color: var(--Components-Button-PrimaryText);
+
+                &:hover {
+                    background-color: var(--Components-Button-PrimaryBG---Hover);
+                }
+
+                &:active {
+                    background-color: var(--Components-Button-PrimaryBG---Pressed);
+                }
             }
         }
     }
 }
 
-.radio {
-    :global {
-        .ant-radio-button-wrapper {
-            background-color: var(--Components-Button-PrimaryBG---Unpressed);
-            border-width: 0;
+.container::-webkit-scrollbar {
+    width: 5px;
+    overflow: hidden;
+}
 
-            &:hover {
-                color: var(--Components-Button-PrimaryBG---Hover);
-            }
+.container::-webkit-scrollbar-track {
+    background: transparent;
+    background-clip: content-box;
+}
 
-            &:not(:first-child)::before {
-                width: 0;
-            }
-        }
-
-        .ant-radio-button-wrapper-checked {
-            background-color: var(--Components-Button-PrimaryBG---Pressed);
-            color: var(--Components-Button-PrimaryText);
-            border-width: 0;
-        }
-    }
+.container::-webkit-scrollbar-thumb {
+    background: var(--Components-Button-PrimaryBG);
+    border-radius: 10px;
 }
