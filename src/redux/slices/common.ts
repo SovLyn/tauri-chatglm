@@ -37,14 +37,13 @@ export const commonSlice = createSlice({
       document.body.className =
         action.payload !== "system"
           ? action.payload
-          : matchMedia("(prefers-color-scheme: dark)").matches
+          : window.matchMedia("(prefers-color-scheme: dark)").matches
           ? "dark"
           : "light";
       state.theme = action.payload;
     },
     setToken: (state: CommonState, action) => {
       state.token = action.payload;
-      console.log("setToken", action);
       localStorage.setItem("token", action.payload);
     },
     setModel: (state: CommonState, action) => {

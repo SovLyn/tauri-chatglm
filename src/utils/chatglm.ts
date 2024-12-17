@@ -48,6 +48,7 @@ export const getAnswer = async (
         });
 
         if (Date.now() - lastTime > 200) {
+          console.log(buf);
           if (onUpdate) {
             onUpdate(buf);
           }

@@ -5,6 +5,7 @@
             .cls-1,
             .cls-2 {
                 fill: none;
+                stroke: #353535;
                 stroke-width: 2px;
             }
 

@@ -34,7 +34,7 @@ const Setting: FC = () => {
           className={styles.radio}
           defaultValue={model}
           onChange={(e) => dispatch(setModel(e.target.value))}>
-          {Object.values(Model).map((key) => (
+          {Object.keys(Model).map((key) => (
             <Radio.Button
               value={key}
               className={styles.radio}
@@ -51,7 +51,7 @@ const Setting: FC = () => {
             value={tokenInput}
             onChange={(e) => setTokenInput(e.target.value)}
           />
-          <Button onClick={() => dispatch(setToken(tokenInput))}>确认</Button>
+          <Button onClick={() => dispatch(setToken(token))}>确认</Button>
         </Space.Compact>
       </div>
     </div>

@@ -18,9 +18,7 @@ const Header: FC<{ className?: string; style?: React.CSSProperties }> = ({
         <div
           className={styles.left}
           onClick={() => {
-            if (document.startViewTransition)
-              document.startViewTransition(() => navigate(-1));
-            else navigate(-1);
+            document.startViewTransition(() => navigate(-1));
           }}>
           <ReturnSVG />
         </div>
@@ -32,9 +30,7 @@ const Header: FC<{ className?: string; style?: React.CSSProperties }> = ({
         <div
           className={styles.right}
           onClick={() => {
-            if (document.startViewTransition)
-              document.startViewTransition(() => navigate("/setting"));
-            else navigate("/setting");
+            document.startViewTransition(() => navigate("/setting"));
           }}>
           <SettingSVG />
         </div>
