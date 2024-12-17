@@ -149,6 +149,8 @@
   --Color-Chat: #ECEBDE;
   --Color-Other: #ABBA7C;
   --Color-Self: #D4EBF8;
+
+  --Color-Code-Background: #b4d3ec;
 }
 
 .dark {
@@ -252,10 +254,12 @@
   --Color-Fill-Pop-up-Window-Mask: rgba(0, 0, 0, 0.45);
   --Components-Modal-ModalBG: #1F1F1F;
 
-  --Color-Header: #2b312c;
+  --Color-Header: #1a6840;
   --Color-Chat: #A59D84;
   --Color-Other: #3D5300;
   --Color-Self: #0A3981;
+
+  --Color-Code-Background: #011627;
 }
 
 body {
@@ -466,4 +470,9 @@ body {
   font-style: normal;
   font-weight: 700;
   src: url(./assets/fonts/GellixTRIAL/GellixTRIAL-Bold.otf) format('truetype'),
+}
+
+code:not(.hljs) {
+  background: var(--Color-Code-Background);
+  color: var(--Color-Text-Primary);
 }
