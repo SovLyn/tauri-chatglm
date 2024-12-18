@@ -80,6 +80,43 @@
 
             }
         }
+
+        pre code {
+            border-radius: var(--Components-Input-Global-borderRadius);
+            position: relative;
+            overflow: hidden;
+
+            &::before {
+                content: attr(data-language);
+                position: absolute;
+                top: 0;
+                right: 0;
+                color: var(--Components-Tag-GrayishBlueText);
+                background-color: var(--Components-Tag-BlueBG);
+                width: fit-content;
+                height: fit-content;
+                border-radius: var(--Components-Input-Global-borderRadius);
+                display: flex;
+                align-items: center;
+                padding: 0 2px;
+            }
+
+            &::-webkit-scrollbar {
+                width: 5px;
+                height: 5px;
+                overflow: hidden;
+            }
+
+            &::-webkit-scrollbar-track {
+                background: transparent;
+                background-clip: content-box;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background: var(--Components-Button-PrimaryBG);
+                border-radius: 10px;
+            }
+        }
     }
 
     .input {

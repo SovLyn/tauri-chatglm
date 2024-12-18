@@ -1,7 +1,7 @@
 const CHATGLM_AI_URL = "https://open.bigmodel.cn/api/paas/v4/chat/completions";
 
 export interface Message {
-  role: "user" | "assistant";
+  role: "user" | "assistant" | "system";
   content: string;
 }
 
@@ -10,7 +10,8 @@ export const getAnswer = async (
   token: string,
   messages: Message[],
   onUpdate?: (data: string) => void,
-  onFinish?: (data: string) => void
+  onFinish?: (data: string) => void,
+  onError?: (error: Error) => void
 ): Promise<void> => {
   try {
     const response = await fetch(CHATGLM_AI_URL, {
@@ -47,8 +48,7 @@ export const getAnswer = async (
           buf += result.choices[0].delta.content;
         });
 
-        if (Date.now() - lastTime > 200) {
-          console.log(buf);
+        if (Date.now() - lastTime > 100) {
           if (onUpdate) {
             onUpdate(buf);
           }
@@ -61,9 +61,17 @@ export const getAnswer = async (
         onFinish(total);
       }
     } else {
-      throw new Error(response.statusText);
+      const res = JSON.parse(await response.text());
+      throw new Error(
+        `error code: ${res?.error?.code ?? "unknown"}, message: ${
+          res?.error?.message ?? "unknown"
+        }`
+      );
     }
-  } catch (error) {
+  } catch (error: any) {
+    if (onError) {
+      onError(error);
+    }
     throw error;
   }
 };

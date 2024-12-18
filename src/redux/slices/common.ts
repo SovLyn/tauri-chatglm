@@ -3,11 +3,8 @@ import { RootState } from "../store";
 
 export enum Model {
   GLM_4_PLUS = "GLM-4-Plus",
-  GLM_4_0520 = "GLM-4-0520",
   GLM_4_LONG = "GLM-4-Long",
   GLM_4_AIRX = "GLM-4-AirX",
-  GLM_4_AIR = "GLM-4-Air",
-  GLM_4_FLASHX = "GLM-4-FlashX",
   GLM_4_FLASH = "GLM-4-Flash",
 }
 

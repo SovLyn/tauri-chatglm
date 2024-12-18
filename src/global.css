@@ -149,6 +149,8 @@
   --Color-Chat: #ECEBDE;
   --Color-Other: #ABBA7C;
   --Color-Self: #D4EBF8;
+
+  --Color-Code-Bg: #e7e9db;
 }
 
 .dark {
@@ -256,6 +258,8 @@
   --Color-Chat: #A59D84;
   --Color-Other: #3D5300;
   --Color-Self: #0A3981;
+
+  --Color-Code-Bg: #2f1e2e;
 }
 
 body {
