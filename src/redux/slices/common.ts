@@ -5,6 +5,7 @@ export enum Model {
   GLM_4_PLUS = "GLM-4-Plus",
   GLM_4_LONG = "GLM-4-Long",
   GLM_4_AIRX = "GLM-4-AirX",
+  GLM_4_AIR = "GLM-4-Air",
   GLM_4_FLASH = "GLM-4-Flash",
 }
 

@@ -11,26 +11,28 @@ import hljs from "highlight.js";
 import katex from "katex";
 
 const parseMath = (html: string): string => {
-  let pattern = /\[\n?(.*?)\n?\]/g;
+  let pattern = /\[ ([\s\S]*?) \]/g;
   let match;
-
   while ((match = pattern.exec(html)) !== null) {
-    const rep = katex.renderToString(match[1], {
-      throwOnError: false,
-      output: "mathml",
-    });
-
+    const rep = katex.renderToString(
+      match[1].replaceAll("&#39;", "'").replaceAll(/&(.*?);/g, "\\$1"),
+      {
+        throwOnError: false,
+        output: "mathml",
+      }
+    );
     html = html.replace(match[0], `<section><eqn>${rep}</eqn></section>`);
   }
 
   pattern = /\( (.*?) \)/g;
-
   while ((match = pattern.exec(html)) !== null) {
-    const rep = katex.renderToString(match[1], {
-      throwOnError: false,
-      output: "mathml",
-    });
-
+    const rep = katex.renderToString(
+      match[1].replaceAll("&#39;", "'").replaceAll(/&(.*?);/g, "\\$1"),
+      {
+        throwOnError: false,
+        output: "mathml",
+      }
+    );
     html = html.replace(match[0], `<eq>${rep}</eq>`);
   }
 
@@ -166,14 +168,7 @@ const Chat: FC = () => {
         {messages
           .filter((c) => c.role !== "system")
           .map((m, i) => (
-            <div
-              className={styles.row}
-              id={`chat row $ {
-              i
-            }
-
-            `}
-              key={i}>
+            <div className={styles.row} id={`chat row $ {i}`} key={i}>
               <div
                 className={m.role === "user" ? styles.self : styles.other}
                 dangerouslySetInnerHTML={{
