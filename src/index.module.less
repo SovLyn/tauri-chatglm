@@ -33,6 +33,14 @@
     animation: rotate-out 0.3s ease-in-out;
 }
 
+::view-transition-in(chat*) {
+    animation: rotate-out 0.1s ease-in-out;
+}
+
+::view-transition-old(chat*) {
+    animation: rotate-out 0.1s ease-in-out;
+}
+
 code:not(.hljs) {
     background-color: var(--Color-Code-Bg);
     color: var(--Color-Text-Primary)

@@ -17,6 +17,7 @@
         border: 2px double var(--Color-Fill-Border);
         border-radius: var(--Border-Radius-RadiusLG);
         overflow-y: auto;
+        overflow-x: hidden;
         background-color: var(--Color-Chat);
         padding: var(--Space-Padding-paddingMD) var(--Space-Padding-paddingXL);
         gap: 10px;
@@ -38,6 +39,9 @@
                 box-shadow: 10px var(--Color-Text-Primary);
                 background-color: var(--Color-Other);
                 margin-right: auto;
+                animation: fadeOutLeft linear both;
+                animation-timeline: view(block);
+                animation-range: exit 20% cover 100%;
 
                 &::before {
                     content: '';
@@ -64,6 +68,9 @@
                 box-shadow: 10px var(--Color-Text-Primary);
                 background-color: var(--Color-Self);
                 margin-left: auto;
+                animation: fadeOutRight linear both;
+                animation-timeline: view(block);
+                animation-range: exit 20% cover 100%;
 
                 &::before {
                     content: '';
@@ -81,40 +88,43 @@
             }
         }
 
-        pre code {
+        .tag {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: var(--Components-Tag-GrayishBlueText);
+            background-color: var(--Components-Tag-BlueBG);
+            width: fit-content;
+            height: fit-content;
             border-radius: var(--Components-Input-Global-borderRadius);
+            display: flex;
+            align-items: center;
+            padding: 0 2px;
+        }
+
+        pre {
             position: relative;
-            overflow: hidden;
 
-            &::before {
-                content: attr(data-language);
-                position: absolute;
-                top: 0;
-                right: 0;
-                color: var(--Components-Tag-GrayishBlueText);
-                background-color: var(--Components-Tag-BlueBG);
-                width: fit-content;
-                height: fit-content;
+            code {
                 border-radius: var(--Components-Input-Global-borderRadius);
-                display: flex;
-                align-items: center;
-                padding: 0 2px;
-            }
+                position: relative;
+                overflow-x: scroll;
 
-            &::-webkit-scrollbar {
-                width: 5px;
-                height: 5px;
-                overflow: hidden;
-            }
+                &::-webkit-scrollbar {
+                    width: 5px;
+                    height: 5px;
+                    overflow: hidden;
+                }
 
-            &::-webkit-scrollbar-track {
-                background: transparent;
-                background-clip: content-box;
-            }
+                &::-webkit-scrollbar-track {
+                    background: transparent;
+                    background-clip: content-box;
+                }
 
-            &::-webkit-scrollbar-thumb {
-                background: var(--Components-Button-PrimaryBG);
-                border-radius: 10px;
+                &::-webkit-scrollbar-thumb {
+                    background: var(--Components-Button-PrimaryBG);
+                    border-radius: 10px;
+                }
             }
         }
     }
@@ -238,4 +248,26 @@
     padding: var(--Space-Padding-paddingS) 0;
     cursor: wait;
     color: var(--Color-Fill-Disable);
+}
+
+@keyframes fadeOutLeft {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes fadeOutRight {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(+50%);
+    }
 }
