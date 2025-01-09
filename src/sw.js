@@ -50,11 +50,11 @@ self.addEventListener("activate", (e) => {
 });
 
 self.addEventListener("fetch", (e) => {
+  console.log("SW Fetch", e.request.url);
   if (e.request.method !== "GET") {
+    console.log("SW Fetch not GET");
     return;
   }
-
-  console.log("SW Fetch", e.request.url);
 
   let matchNoCache = false;
   for (let i = 0; i < NoCacheRegex.length; i++) {
