@@ -1,3 +1,6 @@
+import { precacheAndRoute } from "workbox-precaching";
+precacheAndRoute(self.__WB_MANIFEST);
+
 const dataCacheName = "cache-v1";
 const cacheName = "resources-v1";
 const LongCacheSuffix = [
