@@ -20,7 +20,7 @@ const LongCacheSuffix = [
 const LongCacheTime = 3 * 24 * 60 * 60 * 1000; // 3 days
 const ShortCacheTime = 60 * 60 * 1000; // 1 hour
 
-const NoCacheRegex = [/^chrome-extension/, /^ https:\/\/open\.bigmodel\.cn/];
+const NoCacheRegex = [/^chrome-extension/, /^https:\/\/open\.bigmodel\.cn/];
 
 self.addEventListener("install", (e) => {
   console.log("SW Install");
@@ -50,6 +50,10 @@ self.addEventListener("activate", (e) => {
 });
 
 self.addEventListener("fetch", (e) => {
+  if (e.request.method !== "GET") {
+    return;
+  }
+
   console.log("SW Fetch", e.request.url);
 
   let matchNoCache = false;
