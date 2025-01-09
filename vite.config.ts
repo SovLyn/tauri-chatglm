@@ -41,7 +41,7 @@ export default defineConfig(async () => ({
         ],
       },
       srcDir: "src",
-      filename: "sw/sw.js",
+      filename: "sw.js",
       strategies: "injectManifest",
       injectRegister: "auto",
     }),
