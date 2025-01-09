@@ -8,6 +8,7 @@
     justify-content: center;
     overflow: hidden;
     padding: var(--Space-Padding-paddingS);
+    --Default-Padding: var(--Space-Padding-paddingS) var(--Space-Padding-paddingMD);
 
     .chat {
         width: 100%;
@@ -27,11 +28,13 @@
         .row {
             width: 100%;
             flex-direction: row;
+            display: flex;
+            justify-content: center;
 
-            .other {
+            .assistant {
                 position: relative;
                 color: var(--Color-Text-Primary);
-                padding: var(--Space-Padding-paddingMD);
+                padding: var(--Default-Padding);
                 border-radius: var(--Border-Radius-RadiusLG);
                 width: fit-content;
                 max-width: 60%;
@@ -57,10 +60,10 @@
                 }
             }
 
-            .self {
+            .user {
                 position: relative;
                 color: var(--Color-Text-Primary);
-                padding: var(--Space-Padding-paddingMD);
+                padding: var(--Default-Padding);
                 border-radius: var(--Border-Radius-RadiusLG);
                 width: fit-content;
                 max-width: 60%;
@@ -85,6 +88,18 @@
                     border-top: 10px solid transparent;
                 }
 
+            }
+
+            .system {
+                color: var(--Color-Warning);
+                background-color: var(--Background-Warning);
+                width: fit-content;
+                height: fit-content;
+                padding: var(--Default-Padding);
+                border-radius: var(--Border-Radius-RadiusLG);
+                max-width: calc(100% - 40px);
+                word-wrap: break-word;
+                overflow-wrap: break-word;
             }
         }
 

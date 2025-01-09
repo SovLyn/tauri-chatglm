@@ -71,7 +71,8 @@ export const getAnswer = async (
   } catch (error: any) {
     if (onError) {
       onError(error);
+    } else {
+      throw error;
     }
-    throw error;
   }
 };

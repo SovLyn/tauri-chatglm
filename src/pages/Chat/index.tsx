@@ -23,10 +23,7 @@ const parseMath = (html: string): string => {
       }
     );
 
-    html = html.replace(
-      match[0],
-      `<section><eqn>${rep}</eqn></section>`
-    );
+    html = html.replace(match[0], `<section><eqn>${rep}</eqn></section>`);
   }
 
   pattern = /\( (.*?) \)/g;
@@ -40,10 +37,7 @@ const parseMath = (html: string): string => {
       }
     );
 
-    html = html.replace(
-      match[0],
-      `<eq>${rep}</eq>`
-    );
+    html = html.replace(match[0], `<eq>${rep}</eq>`);
   }
 
   return html;
@@ -153,7 +147,7 @@ const Chat: FC = () => {
                 content: error.toString(),
               });
               localStorage.setItem("messages", JSON.stringify(res));
-              return prev;
+              return res;
             });
             alert(error);
           }
@@ -178,21 +172,19 @@ const Chat: FC = () => {
             href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.0/styles/paraiso-light.min.css"
           />
         )}
-        {messages
-          .filter((c) => c.role !== "system")
-          .map((m, i) => (
-            <div className={styles.row} id={`chat row ${i}`} key={i}>
-              <div
-                className={m.role === "user" ? styles.self : styles.other}
-                dangerouslySetInnerHTML={{
-                  __html: parseMath(
-                    marked.parse(m.content, {
-                      async: false,
-                    })
-                  ),
-                }}></div>
-            </div>
-          ))}
+        {messages.map((m, i) => (
+          <div className={styles.row} id={`chat row ${i}`} key={i}>
+            <div
+              className={styles[m.role]}
+              dangerouslySetInnerHTML={{
+                __html: parseMath(
+                  marked.parse(m.content, {
+                    async: false,
+                  })
+                ),
+              }}></div>
+          </div>
+        ))}
       </div>
       <div className={styles.input}>
         <textarea
@@ -200,6 +192,7 @@ const Chat: FC = () => {
           placeholder="请输入内容"
           onChange={(e) => setInput(e.target.value)}
           value={input}
+          name="input"
         />
         <div className={styles.buttons}>
           <button

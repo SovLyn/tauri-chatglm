@@ -15,6 +15,7 @@
     "@tauri-apps/plugin-shell": "^2",
     "@types/lodash": "^4.17.13",
     "@types/node": "^22.10.1",
+    "@types/service_worker_api": "^0.0.9",
     "antd": "^5.22.4",
     "classnames": "^2.5.1",
     "highlight.js": "^11.11.0",
@@ -28,6 +29,7 @@
     "react-router-dom": "^7.0.2",
     "redux": "^5.0.1",
     "tauri_test_app": "file:",
+    "vite-plugin-pwa": "^0.21.1",
     "vite-plugin-svgr": "^4.3.0"
   },
   "devDependencies": {

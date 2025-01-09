@@ -36,6 +36,9 @@
   --Space-Margin-SM: 12px;
   --Space-Margin-XXS: 4px;
   --Space-Margin-margin: 16px;
+
+  --Background-Warning: #8E1616;
+  --Color-Warning: #FFEB00;
 }
 
 .light {
