@@ -19,7 +19,7 @@ import {
 } from "@/redux/slices/chat";
 
 const parseMath = (html: string): string => {
-  let pattern = /\[ ([\s\S]*?) \]/g;
+  let pattern = /\[\s([^[\]]*?)\s\]/g;
   let match;
 
   while ((match = pattern.exec(html)) !== null) {
@@ -34,7 +34,7 @@ const parseMath = (html: string): string => {
     html = html.replace(match[0], `<section><eqn>${rep}</eqn></section>`);
   }
 
-  pattern = /\( (.*?) \)/g;
+  pattern = /\(\s([^[\)]*?)\s\)/g;
 
   while ((match = pattern.exec(html)) !== null) {
     const rep = katex.renderToString(
