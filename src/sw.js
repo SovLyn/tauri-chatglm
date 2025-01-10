@@ -35,18 +35,18 @@ self.addEventListener("install", (e) => {
 
 self.addEventListener("activate", (e) => {
   console.log("SW Activate");
-  e.waitUntil(
-    caches.keys().then(function (keyList) {
-      return Promise.all(
-        keyList.map(function (key) {
-          if (key !== cacheName) {
-            console.log("SW Removing old cache", key);
-            return caches.delete(key);
-          }
-        })
-      );
-    })
-  );
+  // e.waitUntil(
+  //   caches.keys().then(function (keyList) {
+  //     return Promise.all(
+  //       keyList.map(function (key) {
+  //         if (key !== cacheName) {
+  //           console.log("SW Removing old cache", key);
+  //           return caches.delete(key);
+  //         }
+  //       })
+  //     );
+  //   })
+  // );
   return self.clients.claim();
 });
 
