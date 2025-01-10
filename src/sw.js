@@ -1,31 +1,29 @@
-import { precacheAndRoute } from "workbox-precaching";
-precacheAndRoute(self.__WB_MANIFEST);
-
 importScripts(
-  "https://storage.googleapis.com/workbox-cdn/releases/3.0.0/workbox-sw.js"
+  "https://storage.googleapis.com/workbox-cdn/releases/6.1.5/workbox-sw.js"
 );
 
-workbox.skipWaiting();
-workbox.clientsClaim();
+workbox.core.clientsClaim();
 
-if (workbox) {
-  workbox.routing.registerRoute(
-    new RegExp("(?!.*\\/api).*"),
-    workbox.strategies.cacheFirst({
-      cacheName: "static-resources",
-    })
-  );
-  workbox.routing.registerRoute(
-    new RegExp("^https://cdnjs.cloudflare.com/.*"),
-    workbox.strategies.cacheFirst({
-      cacheName: "cloudflare-cdn-resources",
-    })
-  );
-  workbox.routing.registerRoute(
-    new RegExp("^chrome-extension://.*", "^https://open.bigmodel.cn/.*"),
-    new workbox.strategies.NetworkOnly()
-  );
-}
+workbox.routing.registerRoute(
+  ({ url }) => url.origin === "https://tauri-test-app.vercel.app",
+  new workbox.strategies.CacheFirst({
+    cacheName: "static-resources",
+  })
+);
+workbox.routing.registerRoute(
+  ({ url }) => url.origin === "https://cdnjs.cloudflare.com",
+  new workbox.strategies.CacheFirst({
+    cacheName: "cloudflare-cdn-resources",
+  })
+);
+workbox.routing.registerRoute(
+  ({ url }) =>
+    url.origin === "https://open.bigmodel.cn" ||
+    url.origin === "chrome-extension",
+  new workbox.strategies.NetworkOnly()
+);
+
+workbox.precaching.precacheAndRoute(self.__WB_MANIFEST);
 
 self.addEventListener("install", (e) => {
   console.log("SW Install");

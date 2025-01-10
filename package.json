@@ -30,7 +30,9 @@
     "redux": "^5.0.1",
     "tauri_test_app": "file:",
     "vite-plugin-pwa": "^0.21.1",
-    "vite-plugin-svgr": "^4.3.0"
+    "vite-plugin-svgr": "^4.3.0",
+    "workbox-routing": "^7.3.0",
+    "workbox-sw": "^7.3.0"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^2",
