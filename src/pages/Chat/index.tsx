@@ -3,12 +3,20 @@ import styles from "./index.module.less";
 
 import { getAnswer, Message } from "@/utils/chatglm";
 
-import { useAppSelector } from "@/redux/store";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
 
 import { marked } from "marked";
 import _ from "lodash";
 import hljs from "highlight.js";
 import katex from "katex";
+import cls from "classnames";
+import {
+  onAppendAnswer,
+  onFailToSend,
+  onSendMessage,
+  setInput,
+  setMessages,
+} from "@/redux/slices/chat";
 
 const parseMath = (html: string): string => {
   let pattern = /\[ ([\s\S]*?) \]/g;
@@ -44,7 +52,9 @@ const parseMath = (html: string): string => {
 };
 
 const highlight = () => {
-  hljs.highlightAll();
+  document.querySelectorAll("pre code:not(.hljs)").forEach((block) => {
+    hljs.highlightElement(block as HTMLElement);
+  });
 
   document.querySelectorAll("pre code").forEach((block) => {
     const pattern = /language-(\S*)/g;
@@ -60,14 +70,12 @@ const highlight = () => {
 };
 
 const Chat: FC = () => {
+  const dispatch = useAppDispatch();
   const { token, model, theme } = useAppSelector((state) => state.common);
+  const { input, messages } = useAppSelector((state) => state.chat);
 
-  const [messages, setMessages] = useState<Message[]>(
-    JSON.parse(localStorage.getItem("messages") ?? "[]")
-  );
   const chatRef = useRef<HTMLDivElement>(null);
   const [buttonAble, setButtonAble] = useState(true);
-  const [input, setInput] = useState("");
 
   useEffect(
     _.debounce(
@@ -90,20 +98,9 @@ const Chat: FC = () => {
     (message: Message) => {
       if (!buttonAble || !token) return;
       setButtonAble(false);
-      setInput("");
+      dispatch(setInput(""));
 
-      setMessages((prev) => {
-        const tmp = [...prev, message];
-        localStorage.setItem("messages", JSON.stringify(tmp));
-
-        return [
-          ...tmp,
-          {
-            role: "assistant",
-            content: "",
-          },
-        ];
-      });
+      dispatch(onSendMessage(message));
 
       if (chatRef.current) {
         getAnswer(
@@ -111,11 +108,7 @@ const Chat: FC = () => {
           token,
           [...messages, message],
           (res) => {
-            setMessages((prev) => {
-              const result = [...prev];
-              result[result.length - 1].content += res;
-              return result;
-            });
+            dispatch(onAppendAnswer(res));
           },
 
           (total) => {
@@ -132,30 +125,19 @@ const Chat: FC = () => {
                 },
               ])
             );
-            hljs.highlightAll();
+            highlight();
           },
 
           (error) => {
             setButtonAble(true);
 
-            setMessages((prev) => {
-              const res = [...prev];
-              res.pop();
-
-              res.push({
-                role: "system",
-                content: error.toString(),
-              });
-              localStorage.setItem("messages", JSON.stringify(res));
-              return res;
-            });
-            alert(error);
+            dispatch(onFailToSend(error));
           }
         );
       }
     },
 
-    [token]
+    [token, messages]
   );
 
   return (
@@ -190,17 +172,35 @@ const Chat: FC = () => {
         <textarea
           rows={4}
           placeholder="请输入内容"
-          onChange={(e) => setInput(e.target.value)}
           value={input}
+          onChange={(e) => dispatch(setInput(e.target.value))}
           name="input"
         />
         <div className={styles.buttons}>
           <button
-            className={
+            className={cls(
+              styles.button,
+              buttonAble && messages.length > 0
+                ? styles["button-clickable"]
+                : styles["button-disable"]
+            )}
+            onClick={() => {
+              localStorage.setItem(
+                `history_${Date.now()}`,
+                JSON.stringify(messages)
+              );
+              dispatch(setMessages([]));
+              localStorage.removeItem("messages");
+            }}>
+            归档
+          </button>
+          <button
+            className={cls(
+              styles.button,
               buttonAble && token
                 ? styles["button-clickable"]
-                : styles["button-unable"]
-            }
+                : styles["button-disable"]
+            )}
             onClick={() => {
               handleSend({
                 role: "user",
@@ -210,13 +210,14 @@ const Chat: FC = () => {
             发送
           </button>
           <button
-            className={
+            className={cls(
+              styles.button,
               buttonAble && token
                 ? styles["button-clickable"]
-                : styles["button-unable"]
-            }
+                : styles["button-disable"]
+            )}
             onClick={() => {
-              setMessages([]);
+              dispatch(setMessages([]));
               localStorage.removeItem("messages");
             }}>
             清除

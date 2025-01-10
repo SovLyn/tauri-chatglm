@@ -212,11 +212,11 @@
             width: 100%;
             gap: var(--Space-Padding-paddingMD);
 
-            :nth-child(1) {
+            :nth-child(2) {
                 flex: 1;
             }
 
-            :nth-child(2) {
+            :not(:nth-child(2)) {
                 width: fit-content;
             }
         }
@@ -238,14 +238,17 @@
     border-radius: 10px;
 }
 
+.button {
+    padding: var(--Space-Padding-paddingS) var(--Space-Padding-paddingMD);
+    border-width: 0;
+    border-radius: var(--Border-Radius-RadiusLG);
+}
 
 .button-clickable {
     background-color: var(--Components-Button-PrimaryBG);
-    border-radius: var(--Border-Radius-RadiusLG);
-    border-width: 0;
-    padding: var(--Space-Padding-paddingS) var(--Space-Padding-paddingMD);
     cursor: pointer;
     color: var(--Components-Button-PrimaryText);
+    transition: all 0.2s ease-in-out;
 
     &:hover {
         background-color: var(--Components-Button-PrimaryBG---Hover);
@@ -256,13 +259,10 @@
     }
 }
 
-.button-unable {
+.button-disable {
     background-color: var(--Color-Fill-BG---Disable);
-    border-radius: var(--Border-Radius-RadiusLG);
-    border-width: 0;
-    padding: var(--Space-Padding-paddingS) 0;
     cursor: wait;
-    color: var(--Color-Fill-Disable);
+    color: var(--Color-Fill-BG---Disable---Text);
 }
 
 @keyframes fadeOutLeft {

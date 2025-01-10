@@ -52,6 +52,7 @@
   --Color-Fill-Disable: rgba(0, 0, 0, 0.04);
   --Color-Fill-Placeholder: rgba(0, 0, 0, 0.25);
   --Color-Fill-BG---Disable: rgba(0, 0, 0, 0.04);
+  --Color-Fill-BG---Disable---Text: rgba(255, 255, 255, 0.85);
 
   --Components-Button-SecondaryText: rgba(0, 0, 0, 0.85);
   --Components-Button-SecondaryBG: #FFFFFF;
@@ -167,6 +168,7 @@
   --Color-Fill-Disable: rgba(0, 0, 0, 0.04);
   --Color-Fill-Placeholder: rgba(255, 255, 255, 0.25);
   --Color-Fill-BG---Disable: rgba(255, 255, 255, 0.08);
+  --Color-Fill-BG---Disable---Text: rgba(255, 255, 255, 0.85);
 
   --Components-Button-SecondaryText: #FFFFFF;
   --Components-Button-SecondaryBG: #424242;
@@ -257,7 +259,7 @@
   --Color-Fill-Pop-up-Window-Mask: rgba(0, 0, 0, 0.45);
   --Components-Modal-ModalBG: #1F1F1F;
 
-  --Color-Header: #2b312c;
+  --Color-Header: #123524;
   --Color-Chat: #A59D84;
   --Color-Other: #3D5300;
   --Color-Self: #0A3981;

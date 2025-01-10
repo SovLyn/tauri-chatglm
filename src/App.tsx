@@ -6,6 +6,7 @@ import Chat from "./pages/Chat";
 import Setting from "./pages/Setting";
 import { Provider } from "react-redux";
 import { createStore } from "./redux/store";
+import History from "./pages/History";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Chat /> },
       { path: "/setting", element: <Setting /> },
+      { path: "/history", element: <History /> },
     ],
   },
 ]);
