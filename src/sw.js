@@ -16,32 +16,16 @@ if (workbox) {
     })
   );
   workbox.routing.registerRoute(
+    new RegExp("^https://cdnjs.cloudflare.com/.*"),
+    workbox.strategies.cacheFirst({
+      cacheName: "cloudflare-cdn-resources",
+    })
+  );
+  workbox.routing.registerRoute(
     new RegExp("^chrome-extension://.*", "^https://open.bigmodel.cn/.*"),
     new workbox.strategies.NetworkOnly()
   );
 }
-
-const cacheName = "resources-v1";
-const LongCacheSuffix = [
-  ".js",
-  ".css",
-  ".html",
-  ".json",
-  ".png",
-  ".jpg",
-  ".jpeg",
-  ".svg",
-  ".gif",
-  ".ico",
-  ".woff",
-  ".otf",
-  ".app",
-  ".dev",
-];
-const LongCacheTime = 3 * 24 * 60 * 60 * 1000; // 3 days
-const ShortCacheTime = 60 * 60 * 1000; // 1 hour
-
-const NoCacheRegex = [/^chrome-extension/, /^https:\/\/open\.bigmodel\.cn/];
 
 self.addEventListener("install", (e) => {
   console.log("SW Install");
@@ -53,11 +37,14 @@ self.addEventListener("activate", (e) => {
   e.waitUntil(
     caches.keys().then(function (keyList) {
       console.log("SW find keys: ", keyList);
-      caches.open(cacheName).then((cache) => {
-        cache.keys().then((k) => {
-          console.log("SW find keys in cache: ", k);
+      for (key of keyList) {
+        console.log("in cache: ", key, ":");
+        caches.match(key).then((cache) => {
+          cache.keys().then((keys) => {
+            console.log(keys);
+          });
         });
-      });
+      }
     })
   );
   return self.clients.claim();
