@@ -1,6 +1,26 @@
 import { precacheAndRoute } from "workbox-precaching";
 precacheAndRoute(self.__WB_MANIFEST);
 
+importScripts(
+  "https://storage.googleapis.com/workbox-cdn/releases/3.0.0/workbox-sw.js"
+);
+
+workbox.skipWaiting();
+workbox.clientsClaim();
+
+if (workbox) {
+  workbox.routing.registerRoute(
+    new RegExp("(?!.*\\/api).*"),
+    workbox.strategies.cacheFirst({
+      cacheName: "static-resources",
+    })
+  );
+  workbox.routing.registerRoute(
+    new RegExp("^chrome-extension://.*", "^https://open.bigmodel.cn/.*"),
+    new workbox.strategies.NetworkOnly()
+  );
+}
+
 const cacheName = "resources-v1";
 const LongCacheSuffix = [
   ".js",
@@ -25,102 +45,24 @@ const NoCacheRegex = [/^chrome-extension/, /^https:\/\/open\.bigmodel\.cn/];
 
 self.addEventListener("install", (e) => {
   console.log("SW Install");
-  e.waitUntil(
-    caches.open(cacheName).then(function (cache) {
-      console.log("SW precaching");
-    })
-  );
   self.skipWaiting();
 });
 
 self.addEventListener("activate", (e) => {
   console.log("SW Activate");
-  // e.waitUntil(
-  //   caches.keys().then(function (keyList) {
-  //     return Promise.all(
-  //       keyList.map(function (key) {
-  //         if (key !== cacheName) {
-  //           console.log("SW Removing old cache", key);
-  //           return caches.delete(key);
-  //         }
-  //       })
-  //     );
-  //   })
-  // );
+  e.waitUntil(
+    caches.keys().then(function (keyList) {
+      console.log("SW find keys: ", keyList);
+      caches.open(cacheName).then((cache) => {
+        cache.keys().then((k) => {
+          console.log("SW find keys in cache: ", k);
+        });
+      });
+    })
+  );
   return self.clients.claim();
 });
 
 self.addEventListener("fetch", (e) => {
-  console.log("SW Fetch", e.request.url);
-  if (e.request.method !== "GET") {
-    console.log("SW Fetch not GET");
-    return;
-  }
-
-  let matchNoCache = false;
-  for (let i = 0; i < NoCacheRegex.length; i++) {
-    if (NoCacheRegex[i].test(e.request.url)) {
-      matchNoCache = true;
-      break;
-    }
-  }
-
-  let matchLongCache = false;
-  if (!matchNoCache) {
-    for (let i = 0; i < LongCacheSuffix.length; i++) {
-      if (e.request.url.indexOf(LongCacheSuffix[i]) > 0) {
-        matchLongCache = true;
-        break;
-      }
-    }
-  }
-
-  if (matchNoCache) {
-    console.log("SW No cache match");
-    e.respondWith(fetch(e.request));
-  } else {
-    console.log("SW Cache match: ", matchLongCache ? "Long" : "Short");
-    e.respondWith(
-      caches
-        .match(e.request.url)
-        .then((response) => {
-          if (!response) throw "No cache match";
-          if (response.headers.get("SW-Cache-Expires") <= Date.now())
-            throw "Cache expired";
-          return response;
-        })
-        .catch(async (err) => {
-          console.log(
-            "due to error: ",
-            err,
-            ", SW Fetching from network",
-            e.request.url
-          );
-          const res = await fetch(e.request);
-          const clonedRes = res.clone();
-          let headers = new Headers(clonedRes.headers);
-          headers.set(
-            "SW-Cache-Expires",
-            Date.now() + matchLongCache ? LongCacheTime : ShortCacheTime
-          );
-          caches.open(cacheName).then((cache) => {
-            clonedRes.blob().then((blob) => {
-              console.log("SW Caching response");
-              cache.put(
-                e.request,
-                new Response(blob, {
-                  headers,
-                  status: res.status,
-                  statusText: res.statusText,
-                })
-              );
-              cache.match(e.request.url).then((res) => {
-                console.log("SW Caching response done", res);
-              });
-            });
-          });
-          return res;
-        })
-    );
-  }
+  console.log("SW Fetch: ", e.request);
 });
