@@ -1,7 +1,6 @@
 import { precacheAndRoute } from "workbox-precaching";
 precacheAndRoute(self.__WB_MANIFEST);
 
-const dataCacheName = "cache-v1";
 const cacheName = "resources-v1";
 const LongCacheSuffix = [
   ".js",
@@ -40,7 +39,7 @@ self.addEventListener("activate", (e) => {
     caches.keys().then(function (keyList) {
       return Promise.all(
         keyList.map(function (key) {
-          if (key !== cacheName && key !== dataCacheName) {
+          if (key !== cacheName) {
             console.log("SW Removing old cache", key);
             return caches.delete(key);
           }
@@ -83,7 +82,7 @@ self.addEventListener("fetch", (e) => {
     console.log("SW Cache match: ", matchLongCache ? "Long" : "Short");
     e.respondWith(
       caches
-        .match(e.request)
+        .match(e.request.url)
         .then((response) => {
           if (!response) throw "No cache match";
           if (response.headers.get("SW-Cache-Expires") <= Date.now())
@@ -105,8 +104,8 @@ self.addEventListener("fetch", (e) => {
             Date.now() + matchLongCache ? LongCacheTime : ShortCacheTime
           );
           caches.open(cacheName).then((cache) => {
-            cache.delete(e.request.url);
             clonedRes.blob().then((blob) => {
+              console.log("SW Caching response");
               cache.put(
                 e.request,
                 new Response(blob, {
@@ -115,6 +114,9 @@ self.addEventListener("fetch", (e) => {
                   statusText: res.statusText,
                 })
               );
+              cache.match(e.request.url).then((res) => {
+                console.log("SW Caching response done", res);
+              });
             });
           });
           return res;
