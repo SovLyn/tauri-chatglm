@@ -16,6 +16,8 @@ const LongCacheSuffix = [
   ".ico",
   ".woff",
   ".otf",
+  ".app",
+  ".dev",
 ];
 const LongCacheTime = 3 * 24 * 60 * 60 * 1000; // 3 days
 const ShortCacheTime = 60 * 60 * 1000; // 1 hour
