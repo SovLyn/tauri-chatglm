@@ -39,10 +39,13 @@
 
   --Background-Warning: #8E1616;
   --Color-Warning: #FFEB00;
+
+  --Application-Opacity: 1.0;
+  background: transparent;
 }
 
 .light {
-  --Background: #FFFFFF;
+  --Background: rgba(255, 255, 255, var(--Application-Opacity));
   --Components-Button-PrimaryText: #FFFFFF;
   --Components-Button-PrimaryBG: #5856D6;
   --Components-Button-PrimaryBG---Hover: #8275D6;
@@ -149,7 +152,7 @@
   --Components-Menu-MenuBG: #FFF;
   --Color-Fill-Divider: rgba(0, 0, 0, 0.10);
 
-  --Color-Header: #55bb8a;
+  --Color-Header: rgba(85, 187, 138, var(--Application-Opacity));
   --Color-Chat: #ECEBDE;
   --Color-Other: #ABBA7C;
   --Color-Self: #D4EBF8;
@@ -158,7 +161,7 @@
 }
 
 .dark {
-  --Background: #141414;
+  --Background: rgba(20, 20, 20, var(--Application-Opacity));
   --Components-Button-PrimaryText: #FFFFFF;
   --Components-Button-PrimaryBG: #5E5CE6;
   --Components-Button-PrimaryBG---Hover: #887BE6;
@@ -259,7 +262,7 @@
   --Color-Fill-Pop-up-Window-Mask: rgba(0, 0, 0, 0.45);
   --Components-Modal-ModalBG: #1F1F1F;
 
-  --Color-Header: #123524;
+  --Color-Header: rgba(36, 54, 66, var(--Application-Opacity));
   --Color-Chat: #A59D84;
   --Color-Other: #3D5300;
   --Color-Self: #0A3981;

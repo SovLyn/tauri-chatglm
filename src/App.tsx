@@ -8,6 +8,13 @@ import { Provider } from "react-redux";
 import { createStore } from "./redux/store";
 import History from "./pages/History";
 
+if ("__TAURI__" in window) {
+  console.log("Tauri is available, __TAURI__: ", window.__TAURI__);
+  document.documentElement.style.setProperty("--Application-Opacity", "0.4");
+} else {
+  console.log("Tauri is not available");
+}
+
 const router = createBrowserRouter([
   {
     path: "/",

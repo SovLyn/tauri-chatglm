@@ -45,13 +45,15 @@ code:not(.hljs) {
     }
 
     100% {
-        transform: rotate(0deg)
+        transform: rotate(0deg);
+        transform-origin: 150% 0;
     }
 }
 
 @keyframes fancy-out {
     0% {
         transform: rotate(0deg);
+        transform-origin: -50% 0;
     }
 
     100% {

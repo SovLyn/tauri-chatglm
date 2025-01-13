@@ -5,10 +5,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     overflow: hidden;
     padding: var(--Space-Padding-paddingS);
     --Default-Padding: var(--Space-Padding-paddingS) var(--Space-Padding-paddingMD);
+    gap: var(--Space-Padding-paddingMD);
 
     .empty {
         width: fit-content;
@@ -42,8 +43,8 @@
         color: var(--Color-Text-Primary);
         transition: all 0.3s ease-in-out;
         padding: 0px var(--Space-Padding-paddingS);
-        gap: var(--Space-Padding-paddingMD);
         cursor: pointer;
+        border: 1px solid var(--Color-Text-Secondary);
 
         &:hover {
             box-shadow: 0 0 10px var(--Color-Text-Secondary);

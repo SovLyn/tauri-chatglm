@@ -18,7 +18,7 @@ const Header: FC<{ className?: string; style?: React.CSSProperties }> = ({
   const location = useLocation();
 
   return (
-    <div className={className} style={style}>
+    <div className={className} style={style} data-tauri-drag-region>
       {location.pathname !== "/" ? (
         <div
           className={styles.left}

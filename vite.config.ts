@@ -39,6 +39,21 @@ export default defineConfig(async () => ({
             type: "image/svg+xml",
           },
         ],
+        screenshots: [
+          {
+            src: "screenshot_wide.png",
+            type: "image/png",
+            sizes: "1920x1080",
+            form_factor: "wide",
+          },
+          {
+            src: "screenshot_phone.png",
+            type: "image/png",
+            sizes: "1080x1920",
+            form_factor: "narrow",
+          },
+        ],
+        display: "standalone",
       },
       srcDir: "src",
       filename: "sw.js",

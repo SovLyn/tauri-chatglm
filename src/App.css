@@ -17,3 +17,11 @@
 div {
   box-sizing: border-box;
 }
+
+textarea {
+  box-sizing: border-box;
+}
+
+html body {
+  background: transparent;
+}
