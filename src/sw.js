@@ -6,13 +6,13 @@ workbox.core.clientsClaim();
 
 workbox.routing.registerRoute(
   ({ url }) => url.origin === "https://tauri-test-app.vercel.app",
-  new workbox.strategies.CacheFirst({
+  new workbox.strategies.StaleWhileRevalidate({
     cacheName: "static-resources",
   })
 );
 workbox.routing.registerRoute(
   ({ url }) => url.origin === "https://cdnjs.cloudflare.com",
-  new workbox.strategies.CacheFirst({
+  new workbox.strategies.StaleWhileRevalidate({
     cacheName: "cloudflare-cdn-resources",
   })
 );

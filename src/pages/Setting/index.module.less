@@ -22,7 +22,8 @@
         color: var(--Color-Text-Primary);
         transition: all 0.3s ease-in-out;
         padding: 0px var(--Space-Padding-paddingS);
-        gap: var(--Space-Padding-paddingMD);        border: 1px solid var(--Color-Text-Secondary);
+        gap: var(--Space-Padding-paddingMD);
+        border: 1px solid var(--Color-Text-Secondary);
 
         &:hover {
             box-shadow: 0 0 10px var(--Color-Text-Secondary);
@@ -32,6 +33,7 @@
             width: 30px;
             height: 30px;
             fill: var(--Color-Text-Primary);
+            stroke: var(--Color-Text-Primary);
             transition: inherit;
         }
 
@@ -96,6 +98,25 @@
                 &:active {
                     background-color: var(--Components-Button-PrimaryBG---Pressed);
                 }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        .item {
+            flex-direction: column;
+            height: auto;
+            padding: var(--Space-Padding-paddingS) 0;
+
+            svg {
+                display: none;
+            }
+
+            .input {
+                min-width: 0;
+                width: auto;
             }
         }
     }

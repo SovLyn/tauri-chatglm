@@ -16,7 +16,7 @@
         "title": "chatglm",
         "width": 960,
         "height": 600,
-        "minWidth": 700,
+        "minWidth": 768,
         "transparent": true,
         "decorations": false
       }
