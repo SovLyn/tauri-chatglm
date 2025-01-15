@@ -3,14 +3,20 @@ import styles from "./index.module.less";
 import ThemeSVG from "@/assets/theme.svg?react";
 import ModelSVG from "@/assets/model.svg?react";
 import TokenSVG from "@/assets/token.svg?react";
+import NewsSVG from "@/assets/news.svg?react";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { Model, setModel, setTheme, setToken } from "@/redux/slices/common";
-import { Button, Input, Radio, Space } from "antd";
+import { Button, Input, Radio, Space, Switch } from "antd";
+import { setNewsToken, setPushNews } from "@/redux/slices/news";
 
 const Setting: FC = () => {
   const dispatch = useAppDispatch();
   const { theme, model, token } = useAppSelector((state) => state.common);
+  const { token: news_token, push_news } = useAppSelector(
+    (state) => state.news
+  );
   const [tokenInput, setTokenInput] = useState(token);
+  const [newsTokenInput, setNewsTokenInput] = useState(news_token);
 
   return (
     <div className={styles.container}>
@@ -52,6 +58,26 @@ const Setting: FC = () => {
             onChange={(e) => setTokenInput(e.target.value)}
           />
           <Button onClick={() => dispatch(setToken(tokenInput))}>确认</Button>
+        </Space.Compact>
+      </div>
+      <div className={styles.item}>
+        <NewsSVG /> <div className={styles.text}>新闻</div>
+        <Space.Compact className={styles.input}>
+          <Input
+            value={newsTokenInput}
+            onChange={(e) => {
+              setNewsTokenInput(e.target.value);
+              if (push_news) dispatch(setPushNews(false));
+            }}
+          />
+          <Switch
+            checked={push_news}
+            onChange={(checked) => {
+              dispatch(setPushNews(checked));
+              if (checked) dispatch(setNewsToken(newsTokenInput));
+            }}
+            disabled={!newsTokenInput}
+          />
         </Space.Compact>
       </div>
     </div>

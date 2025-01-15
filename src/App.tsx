@@ -10,7 +10,7 @@ import History from "./pages/History";
 
 if ("__TAURI__" in window) {
   console.log("Tauri is available, __TAURI__: ", window.__TAURI__);
-  document.documentElement.style.setProperty("--Application-Opacity", "0.4");
+  document.documentElement.style.setProperty("--Application-Opacity", "0.3");
 } else {
   console.log("Tauri is not available");
 }
