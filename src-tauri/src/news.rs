@@ -1,7 +1,8 @@
 use std::error::Error;
-use log::{info, warn};
+use log::warn;
 use tokio;
 use serde::{Deserialize, Serialize};
+use scraper::{Html, Selector};
 
 #[derive(Serialize, Deserialize, Debug)]
 struct News {
@@ -50,18 +51,15 @@ struct ModelQuery{
 }
 
 pub async fn get_news(model_token: String, news_token: String)-> Result<String, Box<dyn Error>> {
-    info!("get news, model_token: {}, news_token: {}", model_token, news_token);
     let params= [("key", news_token), ("num", "20".to_owned())];
     let url = reqwest::Url::parse_with_params("https://apis.tianapi.com/it/index", &params)?;
     let res = reqwest::get(url).await?;
-    info!("Response: {:?}", res);
     if res.status() != 200 {
         warn!("Error: failed to get news, status code: {}", res.status());
         return Err("Error: failed to get news".into());
     }
 
     let res = serde_json::from_str::<Response>(&res.text().await?)?;
-    info!("Response: {:?}", res);
     if res.code != 200 {
         warn!("Error: failed to get news, code: {}", res.code);
         return Err("Error: failed to get news".into());
@@ -131,7 +129,7 @@ pub async fn get_news(model_token: String, news_token: String)-> Result<String, 
         messages: vec![
             Message{
                 role: "user".to_string(),
-                content: format!("请将以下新闻内容进行简短概括，并输出标题和概括内容，格式如下：\n标题：\n概括内容：\n\n{}", news_string)
+                content: format!("请将以下新闻内容逐条进行简短概括，并输出标题和概括内容，请按markdown格式回答\n\n{}", news_string)
             }
         ]
     })?)
@@ -143,26 +141,11 @@ pub async fn get_news(model_token: String, news_token: String)-> Result<String, 
 }
 
 fn parse_dom(html: &str) -> Result<String, Box<dyn Error>> {
-    let dom = tl::parse(html, tl::ParserOptions::default()).unwrap();
-    let parser = dom.parser();
+    let dom_parser = Html::parse_document(html);
+    let selector =  Selector::parse("#content div.post_body p")?;
     let mut result = String::new();
-    let content_node = match dom.query_selector("#content div.post_body p"){
-        Some(t)=>{
-            t
-        },
-        None=>{
-            return Err("Error: failed to get content node".into());
-        }
-    };
-    for node in content_node {
-        match node.get(parser) {
-            Some(t) => {
-                result.push_str(&t.inner_html(parser));
-            },
-            None=>{
-                continue;
-            }
-        }
+    for node in dom_parser.select(&selector) {
+        result.push_str(&node.text().collect::<String>());
     }
     Ok(result)
 }

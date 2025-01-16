@@ -1,7 +1,7 @@
 import { FC, useCallback, useEffect, useRef, useState } from "react";
 import styles from "./index.module.less";
 
-import { getAnswer, Message } from "@/utils/chatglm";
+import { getAnswer, getDailyNews, Message } from "@/utils/chatglm";
 
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 
@@ -76,6 +76,41 @@ const Chat: FC = () => {
 
   const chatRef = useRef<HTMLDivElement>(null);
   const [buttonAble, setButtonAble] = useState(true);
+
+  useEffect(() => {
+    const today = new Date().setHours(0, 0, 0, 0);
+    let newsToday = "";
+    for (let key in localStorage) {
+      if (key.startsWith("news_")) {
+        let [_, date] = key.split("_");
+        if (Number(date) < today) {
+          localStorage.removeItem(key);
+        } else {
+          newsToday = localStorage.getItem(key) || "";
+        }
+      }
+    }
+    if (messages.length == 0) {
+      let newsConfig = JSON.parse(localStorage.getItem("news") || "{}");
+      if (token && newsConfig && newsConfig.token && newsConfig.push_news) {
+        if (newsToday) {
+          dispatch(setMessages([{ role: "assistant", content: newsToday }]));
+        } else {
+          setButtonAble(false);
+          getDailyNews(token, newsConfig.token as string)
+            .then((res) => {
+              if (res) {
+                localStorage.setItem(`news_${today}`, res);
+                dispatch(setMessages([{ role: "assistant", content: res }]));
+              }
+            })
+            .finally(() => {
+              setButtonAble(true);
+            });
+        }
+      }
+    }
+  }, []);
 
   useEffect(
     _.debounce(

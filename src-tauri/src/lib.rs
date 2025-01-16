@@ -1,15 +1,15 @@
-use log::warn;
+use log::{warn, info};
 use tauri::Manager;
 use window_vibrancy::*;
-use tauri_plugin_log::{Target, TargetKind};
 
 mod news;
 
 #[tauri::command]
-async fn greet(model_token: String, news_token: String) -> Result<(), String> {
+async fn greet(model_token: String, news_token: String) -> Result<String, String> {
+    info!("greet: model_token: {model_token}, news_token: {news_token}");
     let res= news::get_news(model_token, news_token).await;
     match res {
-        Ok(_) => Ok(()),
+        Ok(r) => Ok(r),
         Err(e) => {
             warn!("Error: {}", e);
             Err(e.to_string())
@@ -32,7 +32,7 @@ pub fn run() {
             Ok(())
         })
         .plugin(tauri_plugin_shell::init())
-        .plugin(tauri_plugin_log::Builder::new().build())
+        .plugin(tauri_plugin_log::Builder::new().level(log::LevelFilter::Info).build())
         .invoke_handler(tauri::generate_handler![greet])
         .run(tauri::generate_context![])
         .expect("error while running tauri application");

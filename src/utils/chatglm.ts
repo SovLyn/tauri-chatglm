@@ -89,6 +89,7 @@ export const getDailyNews = async (
       modelToken,
       newsToken,
     });
+    console.log("result", result);
     if (result && typeof result === "string") {
       const res = JSON.parse(result);
       return (res?.choices?.[0]?.message?.content as string) ?? "";
@@ -111,25 +112,12 @@ export const getDailyNews = async (
         }`
       );
     }
-    const newslist = res?.msg?.newslist ?? [];
-    const news = [];
-    for (const item of newslist) {
-      if (!item.url) continue;
-      const new_website = await fetch(item.url);
-      if (!new_website.ok) continue;
-      const new_res = await new_website.text();
-      const parser = new DOMParser();
-      const dom = parser.parseFromString(new_res, "text/html");
-      const content_node = dom.querySelector("#content div.post_body p");
-      if (!content_node) continue;
-      let single_new = "";
-      for (const node of content_node.childNodes) {
-        if (node.nodeType === Node.TEXT_NODE) {
-          single_new += node.textContent ?? "";
-        }
-      }
-      news.push(`title:${item?.title ?? ""}\ncontent:${single_new}`);
-    }
+    const newslist = res?.result?.newslist ?? [];
+    const newsPromises = newslist.map((item: any) =>
+      fetchNews(item?.title, item?.url)
+    );
+    const newsResults = await Promise.all(newsPromises);
+    const news = newsResults.filter((item) => item !== null);
     if (news.length === 0) {
       throw new Error("no news found");
     }
@@ -145,12 +133,38 @@ export const getDailyNews = async (
           role: "user",
           content: `请将以下新闻内容进行总结，并输出一个简短的新闻标题和新闻内容摘要：\n\n${news.join(
             "\n\n"
-          )})\n\n请输出格式为：\n\n标题：\n内容摘要：\n\n`,
+          )})\n\n请按markdown格式回答`,
         },
       }),
     });
     if (!res.ok) throw new Error("chatglm error");
     const json = await res.json();
     return json?.choices[0]?.message?.content ?? "";
+  }
+};
+
+const fetchNews = async (
+  title?: string,
+  url?: string
+): Promise<string | null> => {
+  try {
+    if (!url) return null;
+    const new_website = await fetch(url);
+    if (!new_website.ok) return null;
+    const new_res = await new_website.text();
+    const parser = new DOMParser();
+    const dom = parser.parseFromString(new_res, "text/html");
+    const content_node = dom.querySelector("#content div.post_body p");
+    if (!content_node) return null;
+    let single_new = "";
+    for (const node of content_node.childNodes) {
+      if (node.nodeType === Node.TEXT_NODE) {
+        single_new += node.textContent ?? "";
+      }
+    }
+    return `title:${title ?? ""}\ncontent:${single_new}`;
+  } catch (e) {
+    console.log("on getting ", url, ", got error: ", e);
+    return null;
   }
 };
