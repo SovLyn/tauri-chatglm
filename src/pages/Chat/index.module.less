@@ -42,9 +42,7 @@
                 box-shadow: 10px var(--Color-Text-Primary);
                 background-color: var(--Color-Other);
                 margin-right: auto;
-                animation: fadeOutLeft linear both;
-                animation-timeline: view(block);
-                animation-range: exit 20% cover 100%;
+
 
                 &::before {
                     content: '';
@@ -71,9 +69,6 @@
                 box-shadow: 10px var(--Color-Text-Primary);
                 background-color: var(--Color-Self);
                 margin-left: auto;
-                animation: fadeOutRight linear both;
-                animation-timeline: view(block);
-                animation-range: exit 20% cover 100%;
 
                 &::before {
                     content: '';
@@ -87,7 +82,20 @@
                     border-left: 10px solid var(--Color-Self);
                     border-top: 10px solid transparent;
                 }
+            }
 
+            @supports (animation-timeline: view(block)) {
+                .assistant {
+                    animation: fadeOutLeft linear both;
+                    animation-timeline: view(block);
+                    animation-range: exit 20% cover 100%;
+                }
+
+                .user {
+                    animation: fadeOutRight linear both;
+                    animation-timeline: view(block);
+                    animation-range: exit 20% cover 100%;
+                }
             }
 
             .system {
