@@ -45,7 +45,7 @@ struct Message {
 }
 
 pub async fn get_news(news_token: String)-> Result<String, Box<dyn Error>> {
-    let params= [("key", news_token), ("num", "20".to_owned())];
+    let params= [("key", news_token), ("num", "10".to_owned())];
     let url = reqwest::Url::parse_with_params("https://apis.tianapi.com/it/index", &params)?;
     let res = reqwest::get(url).await?;
     if res.status() != 200 {

@@ -99,7 +99,7 @@ export const getDailyNews = async (
   } else {
     const url = new URL(NEWS_API_URL);
     url.searchParams.append("key", newsToken);
-    url.searchParams.append("num", "20");
+    url.searchParams.append("num", "10");
     const response = await fetch(url.toString());
     if (!response.ok) {
       throw new Error(`network error, code: ${response.status}`);
