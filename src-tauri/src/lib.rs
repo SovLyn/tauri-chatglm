@@ -1,3 +1,5 @@
+use std::process::exit;
+
 use log::{info, warn};
 use tauri::{
     menu::{Menu, MenuItem},
@@ -68,15 +70,14 @@ pub fn run() {
                                     .expect("Unsupported platform! 'apply_acrylic' is only supported on Windows");
                             }
                         }
-                        unknown => {
-                            info!("unhandled event {unknown:?}");
-                        }
+                        _ => {}
                     })
                     .menu(&menu)
                     .on_menu_event(|app, event| match event.id.as_ref() {
                         "quit" => {
                             info!("quit menu item clicked");
                             app.exit(0);
+                            exit(0);
                         }
                         _ => {}
                     })
