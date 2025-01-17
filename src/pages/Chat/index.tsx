@@ -97,12 +97,44 @@ const Chat: FC = () => {
           dispatch(setMessages([{ role: "assistant", content: newsToday }]));
         } else {
           setButtonAble(false);
-          getDailyNews(token, newsConfig.token as string)
-            .then((res) => {
-              if (res) {
-                localStorage.setItem(`news_${today}`, res);
-                dispatch(setMessages([{ role: "assistant", content: res }]));
+          dispatch(setMessages([{ role: "assistant", content: "" }]));
+          getDailyNews(
+            token,
+            newsConfig.token as string,
+            (res) => {
+              dispatch(onAppendAnswer(res));
+            },
+            (total) => {
+              if (!total) {
+                dispatch(
+                  setMessages([
+                    {
+                      role: "assistant",
+                      content: "今日新闻获取失败，请稍后再试",
+                    },
+                  ])
+                );
+              } else {
+                localStorage.setItem(
+                  "messages",
+                  JSON.stringify([
+                    {
+                      role: "assistant",
+                      content: total,
+                    },
+                  ])
+                );
+                highlight();
               }
+            }
+          )
+            .catch((err) => {
+              console.log("on getting daily news, ", err);
+              dispatch(
+                setMessages([
+                  { role: "assistant", content: "获取新闻失败, 错误：" + err },
+                ])
+              );
             })
             .finally(() => {
               setButtonAble(true);

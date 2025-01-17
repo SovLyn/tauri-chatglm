@@ -82,17 +82,17 @@ export const getAnswer = async (
 
 export const getDailyNews = async (
   modelToken: string,
-  newsToken: string
-): Promise<string> => {
+  newsToken: string,
+  onUpdate?: (text: string) => void,
+  onFinish?: (text: string) => void
+) => {
+  let news = "";
   if ("__TAURI__" in window) {
-    const result = await core.invoke("greet", {
-      modelToken,
+    const result = await core.invoke("get_news", {
       newsToken,
     });
-    console.log("result", result);
     if (result && typeof result === "string") {
-      const res = JSON.parse(result);
-      return (res?.choices?.[0]?.message?.content as string) ?? "";
+      news = result;
     } else {
       throw new Error("unknown error");
     }
@@ -116,53 +116,102 @@ export const getDailyNews = async (
     const newsPromises = newslist.map((item: any) =>
       fetchNews(item?.title, item?.url)
     );
-    const newsResults = await Promise.all(newsPromises);
-    const news = newsResults.filter((item) => item !== null);
-    if (news.length === 0) {
+    let newsResults = await Promise.all(newsPromises);
+    newsResults = newsResults.filter((item) => item !== null);
+    if (newsResults.length === 0) {
       throw new Error("no news found");
     }
-    res = await fetch(CHATGLM_AI_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        model: "glm-4-plus",
-        messages: {
+    news = newsResults.join("\n");
+  }
+  if (news.length === 0) {
+    throw new Error("no news found");
+  }
+
+  let res = await fetch(CHATGLM_AI_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${modelToken}`,
+      Accept: "text/event-stream",
+    },
+    body: JSON.stringify({
+      model: "glm-4-long",
+      stream: true,
+      messages: [
+        {
           role: "user",
-          content: `请将以下新闻内容进行总结，并输出一个简短的新闻标题和新闻内容摘要：\n\n${news.join(
-            "\n\n"
-          )})\n\n请按markdown格式回答`,
+          content: `请将以下新闻内容进行总结，并输出一个简短的新闻标题和新闻内容摘要，请按markdown格式回答：\n\n${news})`,
         },
-      }),
-    });
-    if (!res.ok) throw new Error("chatglm error");
-    const json = await res.json();
-    return json?.choices[0]?.message?.content ?? "";
+      ],
+    }),
+  });
+  if (res.ok) {
+    if (!res.body) {
+      throw new Error("No response body");
+    }
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder("utf-8");
+    let total = "";
+    let buf = "";
+    let lastTime = Date.now();
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      const chunk = decoder.decode(value, { stream: true });
+
+      chunk.split("\n\n").forEach((line) => {
+        if (!line.startsWith("data: ")) return;
+        if (line === "data: [DONE]") return;
+        const result = JSON.parse(line.replace("data: ", ""));
+        buf += result.choices[0].delta.content;
+      });
+
+      if (Date.now() - lastTime > 100) {
+        if (onUpdate) {
+          onUpdate(buf);
+        }
+        lastTime = Date.now();
+        total += buf;
+        buf = "";
+      }
+    }
+    if (onFinish) {
+      onFinish(total);
+    }
+  } else {
+    const result = JSON.parse(await res.text());
+    throw new Error(
+      `error code: ${result?.error?.code ?? "unknown"}, message: ${
+        result?.error?.message ?? "unknown"
+      }`
+    );
   }
 };
 
 const fetchNews = async (
   title?: string,
-  url?: string
+  url?: string,
+  description?: string,
+  ctime?: string
 ): Promise<string | null> => {
   try {
     if (!url) return null;
-    const new_website = await fetch(url);
+    const new_website = await fetch(
+      `https://cors-anywhere.herokuapp.com/${url}`
+    );
     if (!new_website.ok) return null;
     const new_res = await new_website.text();
     const parser = new DOMParser();
     const dom = parser.parseFromString(new_res, "text/html");
-    const content_node = dom.querySelector("#content div.post_body p");
+    const content_node = dom.querySelectorAll("#content div.post_body p");
     if (!content_node) return null;
     let single_new = "";
-    for (const node of content_node.childNodes) {
-      if (node.nodeType === Node.TEXT_NODE) {
-        single_new += node.textContent ?? "";
-      }
+    for (const node of content_node) {
+      single_new += node.textContent ?? "";
     }
-    return `title:${title ?? ""}\ncontent:${single_new}`;
+    return `title:${title ?? ""}\ncontent:${single_new}\ndescription:${
+      description ?? ""
+    }\nctime:${ctime ?? ""}`;
   } catch (e) {
     console.log("on getting ", url, ", got error: ", e);
     return null;

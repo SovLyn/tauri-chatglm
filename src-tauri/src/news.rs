@@ -1,5 +1,5 @@
 use std::error::Error;
-use log::warn;
+use log::{info, warn};
 use tokio;
 use serde::{Deserialize, Serialize};
 use scraper::{Html, Selector};
@@ -44,13 +44,7 @@ struct Message {
     content: String,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
-struct ModelQuery{
-    model: String,
-    messages: Vec<Message>,
-}
-
-pub async fn get_news(model_token: String, news_token: String)-> Result<String, Box<dyn Error>> {
+pub async fn get_news(news_token: String)-> Result<String, Box<dyn Error>> {
     let params= [("key", news_token), ("num", "20".to_owned())];
     let url = reqwest::Url::parse_with_params("https://apis.tianapi.com/it/index", &params)?;
     let res = reqwest::get(url).await?;
@@ -77,6 +71,7 @@ pub async fn get_news(model_token: String, news_token: String)-> Result<String, 
             };
             match client.get(url).send().await {
                 Ok(res) => {
+                    info!("Success: get news, title: {}, code {}", news.title, res.status());
                     if res.status() == 200 {
                         Some(NewsQuery{
                             title: news.title,
@@ -97,15 +92,15 @@ pub async fn get_news(model_token: String, news_token: String)-> Result<String, 
         })
     }).collect();
 
-    let mut news_list = Vec::new();
+    let mut res=vec![];
 
     let results = futures::future::join_all(tasks).await;
     for result in results {
-        if let Ok(Some(mut news)) = result {
+        if let Ok(Some(news)) = result {
             match parse_dom(&news.content) {
                 Ok(content) => {
-                    news.content = content;
-                    news_list.push(news);
+                    info!("news parsed: {}", content.chars().take(30).collect::<String>());
+                    res.push(format!("title:{}\ncontent:{}\ndescription:{}\nctime:{}\n", news.title, content, news.description, news.ctime))
                 },
                 Err(e) => {
                     warn!("Error: failed to parse news, error: {}", e);
@@ -114,30 +109,11 @@ pub async fn get_news(model_token: String, news_token: String)-> Result<String, 
         }
     }
 
-    if news_list.len() == 0 {
+    if res.len() == 0 {
         return Err("No news found".into());
     }
 
-    let client = reqwest::Client::new();
-    let news_string = serde_json::to_string(&news_list)?;
-
-    let res=client.post("https://open.bigmodel.cn/api/paas/v4/chat/completions")
-    .header("Authorization", format!("Bearer {}", model_token))
-    .header("Content-Type", "application/json")
-    .body(serde_json::to_string(&ModelQuery{
-        model: "glm-4-plus".to_string(),
-        messages: vec![
-            Message{
-                role: "user".to_string(),
-                content: format!("请将以下新闻内容逐条进行简短概括，并输出标题和概括内容，请按markdown格式回答\n\n{}", news_string)
-            }
-        ]
-    })?)
-    .send().await?;
-
-    let res = res.text().await?;
-    
-    Ok(res)
+    Ok(res.join("\n\n"))
 }
 
 fn parse_dom(html: &str) -> Result<String, Box<dyn Error>> {
