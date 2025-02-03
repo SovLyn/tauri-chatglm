@@ -4,11 +4,13 @@ import { createSlice } from "@reduxjs/toolkit";
 export interface ChatState {
   input: string;
   messages: Message[];
+  annotation: string;
 }
 
 export const initialState: ChatState = {
   input: "",
   messages: JSON.parse(localStorage.getItem("messages") ?? "[]"),
+  annotation: localStorage.getItem("annotation") ?? "",
 };
 
 export const chatSlice = createSlice({
@@ -40,6 +42,10 @@ export const chatSlice = createSlice({
       });
       localStorage.setItem("messages", JSON.stringify(state.messages));
     },
+    setAnnotation: (state: ChatState, action) => {
+      localStorage.setItem("annotation", action.payload);
+      state.annotation = action.payload;
+    },
   },
 });
 
@@ -49,10 +55,13 @@ export const {
   onSendMessage,
   onAppendAnswer,
   onFailToSend,
+  setAnnotation,
 } = chatSlice.actions;
 
 export const selectInput = (state: { chat: ChatState }) => state.chat.input;
 export const selectMessages = (state: { chat: ChatState }) =>
   state.chat.messages;
+export const selectAnnotation = (state: { chat: ChatState }) =>
+  state.chat.annotation;
 
 export const chatReducer = chatSlice.reducer;

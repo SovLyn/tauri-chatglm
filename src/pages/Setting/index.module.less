@@ -13,7 +13,8 @@
 
     .item {
         width: 100%;
-        height: 60px;
+        min-height: 60px;
+        height: fit-content;
         border-radius: 10px;
         display: flex;
         align-items: center;
@@ -21,7 +22,7 @@
         font-size: 20px;
         color: var(--Color-Text-Primary);
         transition: box-shadow 0.3s ease-in-out;
-        padding: 0px var(--Space-Padding-paddingS);
+        padding: var(--Space-Padding-paddingS) var(--Space-Padding-paddingS);
         gap: var(--Space-Padding-paddingMD);
         border: 1px solid var(--Color-Text-Secondary);
 
@@ -139,6 +140,10 @@
                 &:active {
                     background-color: var(--Components-Button-PrimaryBG---Pressed);
                 }
+            }
+
+            .ant-input-affix-wrapper {
+                width: 60%;
             }
         }
     }

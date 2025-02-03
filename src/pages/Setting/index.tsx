@@ -4,10 +4,13 @@ import ThemeSVG from "@/assets/theme.svg?react";
 import ModelSVG from "@/assets/model.svg?react";
 import TokenSVG from "@/assets/token.svg?react";
 import NewsSVG from "@/assets/news.svg?react";
+import RoleSVG from "@/assets/role.svg?react";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { Model, setModel, setTheme, setToken } from "@/redux/slices/common";
 import { Button, Input, Radio, Space, Switch } from "antd";
 import { setNewsToken, setPushNews } from "@/redux/slices/news";
+import TextArea from "antd/es/input/TextArea";
+import { setAnnotation } from "@/redux/slices/chat";
 
 const Setting: FC = () => {
   const dispatch = useAppDispatch();
@@ -15,8 +18,13 @@ const Setting: FC = () => {
   const { token: news_token, push_news } = useAppSelector(
     (state) => state.news
   );
+  const { annotation } = useAppSelector((state) => state.chat);
   const [tokenInput, setTokenInput] = useState(token);
   const [newsTokenInput, setNewsTokenInput] = useState(news_token);
+  const [annotationItemHovering, setAnnotationItemHovering] = useState<{
+    hovering: boolean;
+    active: boolean;
+  }>({ hovering: false, active: false });
 
   return (
     <div className={styles.container}>
@@ -59,6 +67,45 @@ const Setting: FC = () => {
           />
           <Button onClick={() => dispatch(setToken(tokenInput))}>确认</Button>
         </Space.Compact>
+      </div>
+      <div
+        className={styles.item}
+        onMouseEnter={() =>
+          setAnnotationItemHovering((prev) => ({
+            ...prev,
+            hovering: true,
+          }))
+        }
+        onMouseLeave={() => {
+          setAnnotationItemHovering((prev) => ({
+            ...prev,
+            hovering: false,
+          }));
+        }}>
+        <RoleSVG />
+        <div className={styles.text}>角色提示</div>
+        <TextArea
+          showCount
+          maxLength={100}
+          onChange={(e) => {
+            dispatch(setAnnotation(e.target.value));
+          }}
+          placeholder="请输入角色提示"
+          onFocus={() =>
+            setAnnotationItemHovering((prev) => ({ ...prev, active: true }))
+          }
+          onBlur={() =>
+            setAnnotationItemHovering((prev) => ({ ...prev, active: false }))
+          }
+          style={{
+            height:
+              annotationItemHovering.active || annotationItemHovering.hovering
+                ? "100px"
+                : "40px",
+            resize: "none",
+          }}
+          value={annotation}
+        />
       </div>
       <div className={styles.item}>
         <NewsSVG /> <div className={styles.text}>新闻</div>

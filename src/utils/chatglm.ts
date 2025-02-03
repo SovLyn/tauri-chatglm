@@ -17,6 +17,12 @@ export const getAnswer = async (
   onError?: (error: Error) => void
 ): Promise<void> => {
   try {
+    if (localStorage.getItem("annotation") != null) {
+      messages.push({
+        role: "system",
+        content: localStorage.getItem("annotation") as string,
+      });
+    }
     const response = await fetch(CHATGLM_AI_URL, {
       method: "POST",
       headers: {
