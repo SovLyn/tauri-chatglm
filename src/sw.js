@@ -23,7 +23,9 @@ workbox.routing.registerRoute(
     new workbox.strategies.NetworkOnly()
 );
 workbox.routing.registerRoute(
-  ({ url }) => url.origin === "https://apis.tianapi.com",
+  ({ url }) =>
+    url.origin === "https://apis.tianapi.com" ||
+    url.origin === "https://cors-anywhere.herokuapp.com",
   new workbox.strategies.CacheFirst({
     cacheName: "tianapi",
     plugins: [

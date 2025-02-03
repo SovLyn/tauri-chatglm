@@ -121,7 +121,7 @@ export const getDailyNews = async (
     if (newsResults.length === 0) {
       throw new Error("no news found");
     }
-    news = newsResults.join("\n");
+    news = newsResults.join("\n\n");
   }
   if (news.length === 0) {
     throw new Error("no news found");
@@ -135,12 +135,12 @@ export const getDailyNews = async (
       Accept: "text/event-stream",
     },
     body: JSON.stringify({
-      model: "glm-4-long",
+      model: "glm-4-plus",
       stream: true,
       messages: [
         {
           role: "user",
-          content: `请将以下新闻内容进行总结，并输出一个简短的新闻标题和新闻内容摘要，请按markdown格式回答：\n\n${news})`,
+          content: `请将以下新闻内容进行总结，并逐条输出一个简短的新闻标题和新闻内容摘要，请忽略敏感内容，请按markdown格式回答，标题使用二级标题：\n\n${news})`,
         },
       ],
     }),

@@ -129,7 +129,6 @@ const Chat: FC = () => {
             }
           )
             .catch((err) => {
-              console.log("on getting daily news, ", err);
               dispatch(
                 setMessages([
                   { role: "assistant", content: "获取新闻失败, 错误：" + err },
@@ -166,9 +165,7 @@ const Chat: FC = () => {
       if (!buttonAble || !token) return;
       setButtonAble(false);
       dispatch(setInput(""));
-
       dispatch(onSendMessage(message));
-
       if (chatRef.current) {
         getAnswer(
           model,
@@ -180,7 +177,6 @@ const Chat: FC = () => {
 
           (total) => {
             setButtonAble(true);
-
             localStorage.setItem(
               "messages",
               JSON.stringify([
@@ -197,14 +193,13 @@ const Chat: FC = () => {
 
           (error) => {
             setButtonAble(true);
-
             dispatch(onFailToSend(error));
           }
         );
       }
     },
 
-    [token, messages]
+    [token, messages, buttonAble]
   );
 
   return (
