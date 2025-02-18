@@ -143,19 +143,6 @@ const Chat: FC = () => {
     }
   }, []);
 
-  useEffect(
-    _.debounce(
-      () => {
-        if (chatRef.current) {
-          chatRef.current.scrollTop = chatRef.current.scrollHeight;
-        }
-      },
-
-      300
-    ),
-    [messages]
-  );
-
   useEffect(() => {
     highlight();
   }, []);
@@ -167,12 +154,19 @@ const Chat: FC = () => {
       dispatch(setInput(""));
       dispatch(onSendMessage(message));
       if (chatRef.current) {
+        const scrollToBottom = _.debounce(() => {
+          chatRef.current?.scrollTo({
+            top: chatRef.current.scrollHeight,
+            behavior: "smooth",
+          });
+        });
         getAnswer(
           model,
           token,
           [...messages, message],
           (res) => {
             dispatch(onAppendAnswer(res));
+            scrollToBottom();
           },
 
           (total) => {
@@ -247,9 +241,10 @@ const Chat: FC = () => {
                 : styles["button-disable"]
             )}
             onClick={() => {
+              if (!buttonAble || messages.length === 0) return;
               localStorage.setItem(
                 `history_${Date.now()}`,
-                JSON.stringify(messages)
+                JSON.stringify({ content: messages })
               );
               dispatch(setMessages([]));
               localStorage.removeItem("messages");

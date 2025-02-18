@@ -85,7 +85,6 @@ const Setting: FC = () => {
         <RoleSVG />
         <div className={styles.text}>角色提示</div>
         <TextArea
-          showCount
           maxLength={100}
           onChange={(e) => {
             dispatch(setAnnotation(e.target.value));
